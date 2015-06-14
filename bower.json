@@ -1,0 +1,16 @@
+{
+  "name": "personal-page",
+  "authors": [
+    "Raphaël Lustin <raphael@lustin.fr>"
+  ],
+  "description": "Raphaël Lustin's personal page",
+  "keywords": [
+    "resume",
+    "rlustin"
+  ],
+  "license": "MIT",
+  "homepage": "https://www.lustin.fr",
+  "dependencies": {
+    "bootstrap": "~3.2.0"
+  }
+}
