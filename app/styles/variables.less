@@ -1,36 +1,47 @@
-//
-// Variables
-// --------------------------------------------------
+// Colors
 
+// Chris Kempson's eighties base16 colors
+@base00: #2d2d2d;
+@base01: #393939;
+@base02: #515151;
+@base03: #747369;
+@base04: #a09f93;
+@base05: #d3d0c8;
+@base06: #e8e6df;
+@base07: #f2f0ec;
+@base08: #f2777a;
+@base09: #f99157;
+@base0A: #ffcc66;
+@base0B: #99cc99;
+@base0C: #66cccc;
+@base0D: #6699cc;
+@base0E: #cc99cc;
+@base0F: #d27b53;
 
-//== Colors
-//
+@gray-darker:   @base01;
+@gray-dark:     @base02;
+@gray:          @base03;
+@gray-light:    @base04;
+@gray-lighter:  @base05;
 
-@gray-darker:            #747369;
-@gray-dark:              #515151;
-@gray:                   #839496;
-@gray-light:             #93a1a1;
-@gray-lighter:           lighten(@gray-light, 15%);
+@brand-primary: @base0D;
+@brand-success: @base0B;
+@brand-info:    @base0D;
+@brand-warning: @base09;
+@brand-danger:  @base08;
 
-@brand-primary:         #69C;
-@brand-success:         #859900;
-@brand-info:            #2aa198;
-@brand-warning:         #cb4b16;
-@brand-danger:          #dc322f;
+// Scaffolding
 
+// Settings for some of the most global styles.
 
-//== Scaffolding
-//
-//## Settings for some of the most global styles.
+// Background color for `<body>`.
+@body-bg: @base07;
+// Global text color on `<body>`.
+@text-color: @base02;
 
-//** Background color for `<body>`.
-@body-bg:               #F2F0EC;
-//** Global text color on `<body>`.
-@text-color:            @gray-dark;
-
-//** Global textual link color.
+// Global textual link color.
 @link-color:            @brand-primary;
-//** Link hover color originally set via `darken()` function.
+// Link hover color originally set via `darken()` function.
 @link-hover-color:      darken(@brand-primary, 15%);
 
 
@@ -759,16 +770,14 @@
 @badge-border-radius:         10px;
 
 
-//== Breadcrumbs
-//
-//##
+// Breadcrumbs
 
 @breadcrumb-padding-vertical:   8px;
 @breadcrumb-padding-horizontal: 15px;
 //** Breadcrumb background color
-@breadcrumb-bg:                 #f5f5f5;
+@breadcrumb-bg:                 lighten(@base07, 5%);
 //** Breadcrumb text color
-@breadcrumb-color:              #ccc;
+@breadcrumb-color:              @base02;
 //** Text color of current page in the breadcrumb
 @breadcrumb-active-color:       @gray-light;
 //** Textual separator for between breadcrumb elements
@@ -801,12 +810,10 @@
 @close-text-shadow:           0 1px 0 #fff;
 
 
-//== Code
-//
-//##
+// Code
 
-@code-color:                  #F2777A;
-@code-bg:                     #E8E6DF;
+@code-color:                  @base07;
+@code-bg:                     @base02;
 
 @kbd-color:                   #fff;
 @kbd-bg:                      #333;
