@@ -74,10 +74,18 @@ code {
   color: #a09f93;
 }
 
+.resume {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
 @media (min-width: 768px) {
   .resume {
     width: 750px;
-    flex-wrap: wrap;
   }
 }
 
@@ -92,14 +100,6 @@ code {
   .resume {
     width: 1170px;
   }
-}
-
-.resume {
-  display: flex;
-  margin-right: auto;
-  margin-left: auto;
-  padding-left: 15px;
-  padding-right: 15px;
 }
 
 .resume__header {
