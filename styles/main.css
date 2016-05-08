@@ -1,0 +1,179 @@
+body {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: #f2f0ec;
+  color: #515151;
+  font-size: 14px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #6699cc;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #4073a6;
+}
+
+h1 {
+  font-size: 36px;
+  margin: .67em 0;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+h3 small {
+  font-size: 65%;
+  font-weight: 400;
+  line-height: 1;
+  color: #a09f93;
+}
+
+h1, h2, h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+code {
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  padding: 2px 4px;
+  font-size: 90%;
+  color: #f2f0ec;
+  background-color: #515151;
+  border-radius: 4px;
+}
+
+.lead {
+  font-size: 21px;
+  margin-bottom: 20px;
+  font-weight: 300;
+  line-height: 1.4;
+}
+
+.content-block {
+  width: 580px;
+}
+
+.text-muted {
+  color: #a09f93;
+}
+
+@media (min-width: 768px) {
+  .resume {
+    width: 750px;
+    flex-wrap: wrap;
+  }
+}
+
+@media (min-width: 992px) {
+  .resume {
+    width: 970px;
+    flex-wrap: nowrap;
+  }
+}
+
+@media (min-width: 1200px) {
+  .resume {
+    width: 1170px;
+  }
+}
+
+.resume {
+  display: flex;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.resume__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-self: flex-start;
+  flex-shrink: 2;
+}
+
+.resume__header__photo {
+  margin: 15px;
+}
+
+.resume__header__name {
+  margin: 15px;
+  align-self: center;
+}
+
+.resume__header__basic-informations {
+  margin: 15px;
+  align-self: center;
+}
+
+.resume__main {
+  flex-grow: 1;
+}
+
+.resume__side {
+  flex-shrink: 2;
+}
+
+.resume__side h2 {
+  font-size: 24px;
+}
+
+.resume__side h3 {
+  font-size: 18px;
+}
+
+.resume__section {
+  padding: 20px;
+  margin: 15px;
+  background-color: #e8e6df;
+  border: 1px solid #f2f0ec;
+  border-radius: 3px;
+  box-shadow: 0px 0px 2px #393939;
+}
+
+.resume__section h2:first-child {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.resume__section h3, h4 {
+  margin-top: 26px;
+}
+
+.resume__section h5 {
+  font-weight: bold;
+}
+
+.resume__section p:last-child {
+  margin: 0px 0px 0px
+}
+
+.contacts {
+  margin-top: 30px;
+  padding-left: 0px;
+  list-style: outside none none;
+}
+
+.contacts li {
+  padding-bottom: 5px;
+}
+
+ol, ul {
+  margin-top: 0;
+  margin-bottom: 10px;
+}

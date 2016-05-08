@@ -47,28 +47,12 @@ function dateSince(year, month, day, locale) {
            + locales[locale].month.pluralize(months);
 }
 
-$('.date-since').each(function () {
-  $(this).html(dateSince(
-    $(this).data('year'),
-    $(this).data('month'),
-    $(this).data('day'),
-    $(this).data('locale')
-  ));
-});
-
-$('.nav a[href^="#"]').click(function () {
-  $('.navbar-toggle').click();
-  $('html, body').animate({
-    scrollTop: $($(this).attr('href')).offset().top - 65
-  }, 'fast');
-
-  return false;
-});
-
-$('footer a[href^="#"]').click(function () {
-  $('html, body').animate({
-    scrollTop: $($(this).attr('href')).offset().top
-  }, 'fast');
-
-  return false;
+var elements = document.querySelectorAll('.date-since');
+Array.prototype.forEach.call(elements, function(element, i){
+  element.innerHTML = dateSince(
+    element.getAttribute('data-year'),
+    element.getAttribute('data-month'),
+    element.getAttribute('data-day'),
+    element.getAttribute('data-locale')
+  );
 });
