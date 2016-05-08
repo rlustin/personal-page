@@ -2,6 +2,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  height: 100vh;
   background-color: #f2f0ec;
   color: #515151;
   font-size: 14px;
@@ -66,6 +67,7 @@ code {
 
 .content-block {
   width: 580px;
+  align-self: center;
 }
 
 .text-muted {
