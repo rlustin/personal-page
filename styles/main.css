@@ -7,6 +7,7 @@ body {
   color: #515151;
   font-size: 14px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 1.42857143; /* Target line-height of 20px, font-size of 14px, so 20 / 14 = 1.42857143 */
 }
 
 a {
