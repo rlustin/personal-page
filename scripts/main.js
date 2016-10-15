@@ -39,7 +39,7 @@ function dateSince(year, month, day, locale) {
   }
 
   if (months === 0) {
-    return years + locales[locale].year.pluralize(years);
+    return years + ' ' + locales[locale].year.pluralize(years);
   }
 
   return years + ' ' + locales[locale].year.pluralize(years) + ' '
