@@ -3,7 +3,7 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   height: 100vh;
-  background-color: #f2f0ec;
+  background-color: #ebe6ff;
   color: #515151;
   font-size: 14px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -40,7 +40,7 @@ h3 small {
   font-size: 65%;
   font-weight: 400;
   line-height: 1;
-  color: #a09f93;
+  color: #9393a0;
 }
 
 h1, h2, h3 {
@@ -72,7 +72,7 @@ code {
 }
 
 .text-muted {
-  color: #a09f93;
+  color: #9393a0;
 }
 
 .resume {
@@ -93,7 +93,6 @@ code {
 @media (min-width: 992px) {
   .resume {
     width: 970px;
-    flex-wrap: nowrap;
   }
 }
 
@@ -107,7 +106,7 @@ code {
   display: flex;
   flex-wrap: wrap;
   align-self: flex-start;
-  flex-shrink: 2;
+  flex-basis: 25%;
 }
 
 .resume__header__photo {
@@ -125,32 +124,16 @@ code {
 }
 
 .resume__main {
-  flex-grow: 1;
-}
-
-.resume__side {
-  flex-shrink: 2;
-}
-
-.resume__side h2 {
-  font-size: 24px;
-}
-
-.resume__side h3 {
-  font-size: 18px;
+  flex-basis: 75%;
 }
 
 .resume__section {
   padding: 20px;
   margin: 15px 15px 30px 15px;
-  background-color: #e8e6df;
-  border: 1px solid #f2f0ec;
-  border-radius: 3px;
-  box-shadow: 0px 0px 2px #393939;
 }
 
 .resume__section h2:first-child {
-  text-align: center;
+  text-align: left;
   margin-top: 10px;
 }
 
