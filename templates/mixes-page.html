@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="title">{{ page.title }}</h1>
+<time class="underdate">{{ page.date }}</time>
+<audio class="text-width" controls src="/{{ page.extra.mp3 }}"></audio>
+<p>
+  <a href="/{{ page.extra.mp3 }}" download>mp3</a>
+</p>
+{{ page.content | safe }}
+{% endblock content %}
