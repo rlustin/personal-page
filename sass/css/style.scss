@@ -14,7 +14,7 @@
 
 @media screen and (min-width: 480px) {
   html {
-    font-size: 16px;
+    font-size: 22px;
   }
 }
 @media screen and (min-width: 960px) {
@@ -71,7 +71,6 @@ ul {
 ol {
   max-width: 32rem;
   margin: var(--first) auto;
-  padding-left: 1rem;
 }
 
 li {
@@ -306,6 +305,7 @@ nav.top {
   }
 
   li {
+    font-size: 26px;
     max-width: 32rem;
     margin: var(--first) auto;
   }
