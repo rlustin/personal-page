@@ -311,6 +311,16 @@ nav.top {
   }
 }
 
+.nav {
+  margin-top: var(--small);
+
+  a {
+    background-color: var(--body-background);
+    color: var(--hover-link-color);
+    text-decoration: none;
+  }
+}
+
 @keyframes float {
 	0% {
 		transform: translatey(0px);
