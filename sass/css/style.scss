@@ -344,5 +344,6 @@ nav.top {
   padding: 20px 25px;
   border-radius: 25px;
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   animation: float 6s ease-in-out infinite;
 }
