@@ -6,11 +6,13 @@
 <p class="nav">
   <a href="../">← mixes</a>
 </p>
-<h1 class="title">{{ page.title }}</h1>
-<time class="underdate">{{ page.date }}</time>
-<audio class="text-width" controls src="/{{ page.extra.mp3 }}"></audio>
+<h1 class="title">
+  {{ page.title }}
+  <time class="underdate">{{ page.date }}</time>
+</h1>
+<audio class="text-width" controls src="/{{ page.extra.mp3 }}" type="audio/mpeg"></audio>
 <p>
-  <a href="/{{ page.extra.mp3 }}" download>mp3</a>
+  <a href="/{{ page.extra.mp3 }}" download="{{ page.title }}.mp3">mp3</a>
 </p>
 {{ page.content | safe }}
 <p class="note">
