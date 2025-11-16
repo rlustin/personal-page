@@ -6,15 +6,17 @@
 
 {% block content %}
 <canvas id="background-pattern"></canvas>
-<nav class="top">
-  <ol>
-    <li>Raphaël Lustin</li>
-    <li>
-      <a href="resume">resume</a> / <a href="cv">CV</a></li>
-    <li>
-      <a href="mixes">mixes</a>
-    </li>
-  </ol>
+<nav class="index-nav">
+  <div class="name-section">
+    <h1>Raphaël Lustin</h1>
+    <p class="tagline">Software engineer & music enthusiast</p>
+  </div>
+</nav>
+<nav class="index-links">
+  <ul>
+    <li><a href="resume">resume</a></li>
+    <li><a href="mixes">mixes</a></li>
+  </ul>
 </nav>
 <script type="module" src="/js/index-bundle.js"></script>
 {% endblock content %}
