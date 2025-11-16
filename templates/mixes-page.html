@@ -11,9 +11,17 @@
   <time class="underdate">{{ page.date }}</time>
 </h1>
 <audio class="text-width" controls src="/{{ page.extra.mp3 }}" type="audio/mpeg"></audio>
+<div id="bpm-container" style="display: none;">
+  <div class="bpm-display">
+    <div class="bpm-content">
+      <div class="bpm-value"></div>
+    </div>
+  </div>
+</div>
 <p>
   <a href="/{{ page.extra.mp3 }}" download="{{ page.title }}.mp3">mp3</a>
 </p>
+<script type="module" src="/js/bundle.js"></script>
 {{ page.content | safe }}
 <p class="note">
   If you’re interested in the music I play,<br />
