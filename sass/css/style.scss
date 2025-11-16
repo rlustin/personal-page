@@ -606,11 +606,13 @@ nav.top {
   }
 }
 
-/* Background tint when BPM is active */
-body {
-  transition: background-color 0.5s ease;
-}
-
-body.bpm-active {
-  background-color: color-mix(in srgb, var(--body-background) 97%, var(--accent-primary) 3%);
+#audio-visualizer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  display: none;
+  pointer-events: none;
 }

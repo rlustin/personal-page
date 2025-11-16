@@ -1,11 +1,18 @@
 import { createRealTimeBpmProcessor, getBiquadFilter } from 'realtime-bpm-analyzer';
 
+const BPM_MESSAGE_STABLE = 'BPM_STABLE';
+
+/**
+ * BPMDetector analyzes audio in real-time to detect beats per minute (BPM)
+ * using the Web Audio API and realtime-bpm-analyzer library.
+ */
 export class BPMDetector {
-  constructor(audioElement, visualizer) {
+  constructor(audioElement, visualizer, audioContext) {
     this.audioElement = audioElement;
     this.visualizer = visualizer;
-    this.audioContext = null;
+    this.audioContext = audioContext;
     this.analyzerNode = null;
+    this.source = null;
     this.isInitialized = false;
     this.currentBPM = null;
     this.isStable = false;
@@ -15,15 +22,13 @@ export class BPMDetector {
     if (this.isInitialized) return;
 
     try {
-      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-      this.audioContext = new AudioContextClass();
       this.analyzerNode = await createRealTimeBpmProcessor(this.audioContext);
-      const source = this.audioContext.createMediaElementSource(this.audioElement);
+      this.source = this.audioContext.createMediaElementSource(this.audioElement);
       const lowpass = getBiquadFilter(this.audioContext);
 
-      source.connect(lowpass);
+      this.source.connect(lowpass);
       lowpass.connect(this.analyzerNode);
-      source.connect(this.audioContext.destination);
+      this.source.connect(this.audioContext.destination);
 
       this.analyzerNode.port.onmessage = (event) => this.handleBPMEvent(event);
       this.isInitialized = true;
@@ -31,6 +36,7 @@ export class BPMDetector {
     } catch (error) {
       const isCorsError = error.name === 'SecurityError' || error.message.includes('cross-origin');
       this.visualizer.setStatus('error', isCorsError ? 'CORS blocked' : 'Unavailable');
+      throw error;
     }
   }
 
@@ -41,7 +47,7 @@ export class BPMDetector {
     if (!bpmValue) return;
 
     this.currentBPM = Math.round(bpmValue);
-    this.isStable = message === 'BPM_STABLE';
+    this.isStable = message === BPM_MESSAGE_STABLE;
     this.visualizer.updateBPM(this.currentBPM, this.isStable);
   }
 
@@ -60,9 +66,13 @@ export class BPMDetector {
   }
 
   destroy() {
-    if (this.audioContext) {
-      this.audioContext.close();
-      this.audioContext = null;
+    if (this.source) {
+      this.source.disconnect();
+      this.source = null;
+    }
+    if (this.analyzerNode) {
+      this.analyzerNode.disconnect();
+      this.analyzerNode = null;
     }
     this.isInitialized = false;
   }

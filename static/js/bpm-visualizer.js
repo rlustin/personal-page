@@ -1,3 +1,9 @@
+const BEAT_ANIMATION_DURATION_MS = 150;
+
+/**
+ * BPMVisualizer displays the detected BPM value and provides visual feedback
+ * synchronized to the beat through pulsing animations.
+ */
 export class BPMVisualizer {
   constructor(containerId) {
     this.container = document.getElementById(containerId);
@@ -9,6 +15,8 @@ export class BPMVisualizer {
     this.isStable = false;
     this.pulseInterval = null;
     this.beatCount = 0;
+    this.valueElement = null;
+    this.displayElement = null;
 
     this.init();
   }
@@ -16,6 +24,10 @@ export class BPMVisualizer {
   init() {
     this.valueElement = this.container.querySelector('.bpm-value');
     this.displayElement = this.container.querySelector('.bpm-display');
+
+    if (!this.valueElement || !this.displayElement) {
+      throw new Error('BPM container missing required child elements (.bpm-value or .bpm-display)');
+    }
   }
 
   updateBPM(bpm, isStable = false) {
@@ -28,9 +40,9 @@ export class BPMVisualizer {
       document.body.classList.add('bpm-active');
 
       if (isStable) {
-        this.container.classList.add('stable');
+        this.displayElement.classList.add('stable');
       } else {
-        this.container.classList.remove('stable');
+        this.displayElement.classList.remove('stable');
       }
 
       this.startPulse(bpm);
@@ -44,18 +56,22 @@ export class BPMVisualizer {
   }
 
   startPulse(bpm) {
-    if (this.pulseInterval) clearInterval(this.pulseInterval);
+    if (this.pulseInterval) {
+      clearInterval(this.pulseInterval);
+    }
 
-    const interval = 60000 / bpm;
+    const intervalMs = 60000 / bpm;
     this.triggerPulse();
-    this.pulseInterval = setInterval(() => this.triggerPulse(), interval);
+    this.pulseInterval = setInterval(() => this.triggerPulse(), intervalMs);
   }
 
   triggerPulse() {
     this.beatCount++;
 
     this.displayElement.classList.add('beat');
-    setTimeout(() => this.displayElement.classList.remove('beat'), 150);
+    setTimeout(() => {
+      this.displayElement.classList.remove('beat');
+    }, BEAT_ANIMATION_DURATION_MS);
   }
 
   stopPulse() {
@@ -73,14 +89,13 @@ export class BPMVisualizer {
     this.beatCount = 0;
     this.container.style.display = 'none';
     this.valueElement.textContent = '';
-    this.container.classList.remove('stable', 'beat');
+    this.displayElement.classList.remove('stable', 'beat');
     document.body.classList.remove('bpm-active');
   }
 
   destroy() {
     this.stopPulse();
-    if (this.container) {
-      this.container.innerHTML = '';
-    }
+    this.valueElement = null;
+    this.displayElement = null;
   }
 }
