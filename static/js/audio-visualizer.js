@@ -1,22 +1,32 @@
-const FFT_SIZE = 128;
-const BAR_COUNT = 32;
-const BAR_GAP = 2;
-const BAR_HEIGHT_MULTIPLIER = 0.7;
-const OPACITY_BASE = 0.15;
-const OPACITY_RANGE = 0.15;
-const DEFAULT_COLOR = { r: 255, g: 51, b: 102 };
+import { ColorObserver, prefersReducedMotion, supportsCanvas, createVisibilityHandler } from './utils.js';
+
+const DEFAULT_CONFIG = {
+  fftSize: 128,
+  barCount: 32,
+  barGap: 2,
+  barHeightMultiplier: 0.7,
+  opacityBase: 0.15,
+  opacityRange: 0.15
+};
 
 /**
  * AudioVisualizer renders a real-time frequency spectrum visualization
  * on a canvas element, synced with the site's animated accent color.
  */
 export class AudioVisualizer {
-  constructor(canvasId, audioContext) {
+  constructor(canvasId, audioContext, config = {}) {
     this.canvas = document.getElementById(canvasId);
     if (!this.canvas) {
       throw new Error(`Canvas element with ID "${canvasId}" not found`);
     }
 
+    if (!supportsCanvas()) {
+      console.warn('Canvas not supported, audio visualizer disabled');
+      this.canvas.style.display = 'none';
+      return;
+    }
+
+    this.config = { ...DEFAULT_CONFIG, ...config };
     this.ctx = this.canvas.getContext('2d');
     this.audioContext = audioContext;
     this.analyser = null;
@@ -24,12 +34,16 @@ export class AudioVisualizer {
     this.bufferLength = null;
     this.animationId = null;
     this.isActive = false;
-    this.cachedColor = null;
-    this.cachedRgb = DEFAULT_COLOR;
+    this.isPaused = false;
     this.resizeHandler = null;
+    this.cleanupVisibility = null;
+
+    this.colorObserver = new ColorObserver();
+    this.shouldAnimate = !prefersReducedMotion();
 
     this.setupCanvas();
-    this.setupColorObserver();
+    this.setupVisibilityHandler();
+    this.colorObserver.start();
   }
 
   setupCanvas() {
@@ -41,25 +55,16 @@ export class AudioVisualizer {
     window.addEventListener('resize', this.resizeHandler);
   }
 
-  setupColorObserver() {
-    this.updateColor();
-    setInterval(() => this.updateColor(), 1000);
-  }
-
-  updateColor() {
-    const accentColor = getComputedStyle(document.documentElement)
-      .getPropertyValue('--accent-primary')
-      .trim();
-
-    if (accentColor && accentColor !== this.cachedColor) {
-      this.cachedColor = accentColor;
-      this.cachedRgb = this.parseColor(accentColor);
-    }
+  setupVisibilityHandler() {
+    this.cleanupVisibility = createVisibilityHandler(
+      () => this.resume(),
+      () => this.pause()
+    );
   }
 
   init(source) {
     this.analyser = this.audioContext.createAnalyser();
-    this.analyser.fftSize = FFT_SIZE;
+    this.analyser.fftSize = this.config.fftSize;
     this.bufferLength = this.analyser.frequencyBinCount;
     this.dataArray = new Uint8Array(this.bufferLength);
 
@@ -67,14 +72,16 @@ export class AudioVisualizer {
   }
 
   start() {
-    if (this.isActive) return;
+    if (this.isActive || !this.shouldAnimate) return;
     this.isActive = true;
+    this.isPaused = false;
     this.canvas.style.display = 'block';
     this.draw();
   }
 
   stop() {
     this.isActive = false;
+    this.isPaused = false;
     if (this.animationId) {
       cancelAnimationFrame(this.animationId);
       this.animationId = null;
@@ -83,54 +90,48 @@ export class AudioVisualizer {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
-  draw() {
+  pause() {
     if (!this.isActive) return;
+    this.isPaused = true;
+    if (this.animationId) {
+      cancelAnimationFrame(this.animationId);
+      this.animationId = null;
+    }
+  }
+
+  resume() {
+    if (!this.isActive || !this.isPaused) return;
+    this.isPaused = false;
+    this.draw();
+  }
+
+  draw() {
+    if (!this.isActive || this.isPaused) return;
 
     this.animationId = requestAnimationFrame(() => this.draw());
     this.analyser.getByteFrequencyData(this.dataArray);
 
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-    const totalGapWidth = (BAR_COUNT - 1) * BAR_GAP;
+    const totalGapWidth = (this.config.barCount - 1) * this.config.barGap;
     const totalBarWidth = this.canvas.width - totalGapWidth;
-    const barWidth = totalBarWidth / BAR_COUNT;
+    const barWidth = totalBarWidth / this.config.barCount;
 
-    for (let i = 0; i < BAR_COUNT; i++) {
-      const dataIndex = Math.floor((i / BAR_COUNT) * this.bufferLength);
+    const { r, g, b } = this.colorObserver.getRgb();
+
+    for (let i = 0; i < this.config.barCount; i++) {
+      const dataIndex = Math.floor((i / this.config.barCount) * this.bufferLength);
       const value = this.dataArray[dataIndex];
       const normalizedValue = value / 255;
-      const barHeight = normalizedValue * this.canvas.height * BAR_HEIGHT_MULTIPLIER;
+      const barHeight = normalizedValue * this.canvas.height * this.config.barHeightMultiplier;
 
-      const x = i * (barWidth + BAR_GAP);
+      const x = i * (barWidth + this.config.barGap);
       const y = this.canvas.height - barHeight;
 
-      const opacity = OPACITY_BASE + normalizedValue * OPACITY_RANGE;
-      const { r, g, b } = this.cachedRgb;
+      const opacity = this.config.opacityBase + normalizedValue * this.config.opacityRange;
       this.ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${opacity})`;
       this.ctx.fillRect(x, y, barWidth, barHeight);
     }
-  }
-
-  parseColor(color) {
-    const hexMatch = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(color);
-    if (hexMatch) {
-      return {
-        r: parseInt(hexMatch[1], 16),
-        g: parseInt(hexMatch[2], 16),
-        b: parseInt(hexMatch[3], 16)
-      };
-    }
-
-    const rgbMatch = /rgba?\((\d+),\s*(\d+),\s*(\d+)/.exec(color);
-    if (rgbMatch) {
-      return {
-        r: parseInt(rgbMatch[1], 10),
-        g: parseInt(rgbMatch[2], 10),
-        b: parseInt(rgbMatch[3], 10)
-      };
-    }
-
-    return DEFAULT_COLOR;
   }
 
   destroy() {
@@ -139,6 +140,15 @@ export class AudioVisualizer {
     if (this.resizeHandler) {
       window.removeEventListener('resize', this.resizeHandler);
       this.resizeHandler = null;
+    }
+
+    if (this.cleanupVisibility) {
+      this.cleanupVisibility();
+      this.cleanupVisibility = null;
+    }
+
+    if (this.colorObserver) {
+      this.colorObserver.stop();
     }
 
     if (this.analyser) {

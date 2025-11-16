@@ -5,6 +5,7 @@
 {% block description %}A selection of personal music mixes.{% endblock %}
 
 {% block content %}
+<canvas id="grid-pattern"></canvas>
 <nav class="top">
   <ol>
     <li>{{ section.title }}</li>
@@ -17,4 +18,5 @@
   {% endfor %}
   </ol>
 </nav>
+<script type="module" src="/js/mixes-index-bundle.js"></script>
 {% endblock content %}

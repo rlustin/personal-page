@@ -9,10 +9,8 @@ const __dirname = dirname(__filename);
 
 const isWatch = process.argv.includes('--watch');
 
-const buildOptions = {
-  entryPoints: [join(__dirname, 'static/js/main.js')],
+const commonOptions = {
   bundle: true,
-  outfile: join(__dirname, 'public/js/bundle.js'),
   format: 'esm',
   target: ['es2020'],
   sourcemap: true,
@@ -20,15 +18,35 @@ const buildOptions = {
   logLevel: 'info',
 };
 
+const buildConfigs = [
+  {
+    ...commonOptions,
+    entryPoints: [join(__dirname, 'static/js/main.js')],
+    outfile: join(__dirname, 'public/js/bundle.js'),
+  },
+  {
+    ...commonOptions,
+    entryPoints: [join(__dirname, 'static/js/index.js')],
+    outfile: join(__dirname, 'public/js/index-bundle.js'),
+  },
+  {
+    ...commonOptions,
+    entryPoints: [join(__dirname, 'static/js/mixes-index.js')],
+    outfile: join(__dirname, 'public/js/mixes-index-bundle.js'),
+  },
+];
+
 async function build() {
   try {
     if (isWatch) {
       console.log('👀 Watching for changes...');
-      const ctx = await esbuild.context(buildOptions);
-      await ctx.watch();
+      const contexts = await Promise.all(
+        buildConfigs.map(config => esbuild.context(config))
+      );
+      await Promise.all(contexts.map(ctx => ctx.watch()));
     } else {
-      console.log('🔨 Building JavaScript bundle...');
-      await esbuild.build(buildOptions);
+      console.log('🔨 Building JavaScript bundles...');
+      await Promise.all(buildConfigs.map(config => esbuild.build(config)));
       console.log('✅ Build complete!');
     }
   } catch (error) {
