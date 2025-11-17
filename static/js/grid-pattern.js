@@ -3,10 +3,11 @@ import { ColorObserver, prefersReducedMotion, supportsCanvas, createVisibilityHa
 const DEFAULT_CONFIG = {
   gridSpacing: 60,
   lineWidth: 1,
-  mouseInfluenceRadius: 200,
-  baseOpacity: 0.08,
-  pulseOpacityRange: 0.04,
-  pulseSpeed: 0.001
+  mouseInfluenceRadius: 250,
+  baseOpacity: 0.06,
+  pulseOpacityRange: 0.06,
+  pulseSpeed: 0.0008,
+  maxLineWidth: 2.5
 };
 
 /**
@@ -125,10 +126,10 @@ export class GridPattern {
     const verticalLines = Math.ceil(this.canvas.width / this.config.gridSpacing);
     for (let i = 0; i <= verticalLines; i++) {
       const x = i * this.config.gridSpacing;
-      const opacity = this.calculateOpacity(x, this.canvas.height / 2, pulse);
+      const { opacity, lineWidth } = this.calculateLineStyle(x, this.canvas.height / 2, pulse);
 
       this.ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${opacity})`;
-      this.ctx.lineWidth = this.config.lineWidth;
+      this.ctx.lineWidth = lineWidth;
       this.ctx.beginPath();
       this.ctx.moveTo(x, 0);
       this.ctx.lineTo(x, this.canvas.height);
@@ -138,10 +139,10 @@ export class GridPattern {
     const horizontalLines = Math.ceil(this.canvas.height / this.config.gridSpacing);
     for (let i = 0; i <= horizontalLines; i++) {
       const y = i * this.config.gridSpacing;
-      const opacity = this.calculateOpacity(this.canvas.width / 2, y, pulse);
+      const { opacity, lineWidth } = this.calculateLineStyle(this.canvas.width / 2, y, pulse);
 
       this.ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${opacity})`;
-      this.ctx.lineWidth = this.config.lineWidth;
+      this.ctx.lineWidth = lineWidth;
       this.ctx.beginPath();
       this.ctx.moveTo(0, y);
       this.ctx.lineTo(this.canvas.width, y);
@@ -149,8 +150,9 @@ export class GridPattern {
     }
   }
 
-  calculateOpacity(x, y, pulse) {
+  calculateLineStyle(x, y, pulse) {
     let opacity = this.config.baseOpacity + pulse * this.config.pulseOpacityRange;
+    let lineWidth = this.config.lineWidth;
 
     if (this.mouse.x !== null && this.mouse.y !== null) {
       const dx = this.mouse.x - x;
@@ -158,12 +160,18 @@ export class GridPattern {
       const distance = Math.sqrt(dx * dx + dy * dy);
 
       if (distance < this.config.mouseInfluenceRadius) {
-        const influence = (1 - distance / this.config.mouseInfluenceRadius) * 0.15;
-        opacity += influence;
+        const influence = 1 - distance / this.config.mouseInfluenceRadius;
+        const smoothInfluence = influence * influence; // Quadratic easing for smoother falloff
+
+        // Enhance opacity near mouse
+        opacity += smoothInfluence * 0.2;
+
+        // Increase line width near mouse
+        lineWidth = this.config.lineWidth + smoothInfluence * (this.config.maxLineWidth - this.config.lineWidth);
       }
     }
 
-    return opacity;
+    return { opacity, lineWidth };
   }
 
   destroy() {

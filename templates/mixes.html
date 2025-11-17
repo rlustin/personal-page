@@ -6,17 +6,25 @@
 
 {% block content %}
 <canvas id="grid-pattern"></canvas>
+
 <nav class="top">
   <ol>
     <li>{{ section.title }}</li>
-    <!-- If you are using pagination, section.pages will be empty. You need to use the paginator object -->
     {% for page in section.pages %}
     <li>
-      <a href="{{ page.permalink | safe }}">{{ page.title }}</a>
-      <p class="metadata">{{ page.date }}</p>
+      <a href="{{ page.permalink | safe }}" class="mix-link">
+        <div class="mix-item">
+          <span class="mix-title">{{ page.title }}</span>
+          <p class="metadata">
+            {{ page.date }}
+            {% if page.extra.duration %} · ♪ {{ page.extra.duration }}{% endif %}
+          </p>
+        </div>
+      </a>
     </li>
-  {% endfor %}
+    {% endfor %}
   </ol>
 </nav>
+
 <script type="module" src="/js/mixes-index-bundle.js"></script>
 {% endblock content %}
