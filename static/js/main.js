@@ -1,18 +1,34 @@
 import { BPMDetector } from './bpm-detector.js';
 import { BPMVisualizer } from './bpm-visualizer.js';
 import { AudioVisualizer } from './audio-visualizer.js';
+import { CustomAudioControls } from './custom-audio-controls.js';
+import { GridPattern } from './grid-pattern.js';
 
 function isCrossOriginAudio(audioSrc) {
   if (!audioSrc) return false;
   return !audioSrc.startsWith(window.location.origin) && !audioSrc.startsWith('/');
 }
 
+function initializeGridPattern() {
+  const canvas = document.getElementById('grid-pattern');
+  if (!canvas) return null;
+
+  const pattern = new GridPattern('grid-pattern');
+  pattern.start();
+  return pattern;
+}
+
 function initializeAudioFeatures() {
-  const audioElement = document.querySelector('audio');
+  const audioElement = document.getElementById('audio-player');
   const bpmContainer = document.getElementById('bpm-container');
   const visualizerCanvas = document.getElementById('audio-visualizer');
 
-  if (!audioElement || !bpmContainer) return;
+  if (!audioElement) return;
+
+  // Initialize custom audio controls
+  new CustomAudioControls(audioElement);
+
+  if (!bpmContainer) return;
 
   const visualizer = new BPMVisualizer('bpm-container');
   const audioSrc = audioElement.src || audioElement.currentSrc;
@@ -85,4 +101,13 @@ function initializeAudioFeatures() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', initializeAudioFeatures);
+document.addEventListener('DOMContentLoaded', () => {
+  const gridPattern = initializeGridPattern();
+  initializeAudioFeatures();
+
+  window.addEventListener('beforeunload', () => {
+    if (gridPattern) {
+      gridPattern.destroy();
+    }
+  });
+});

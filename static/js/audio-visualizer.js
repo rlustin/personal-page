@@ -2,8 +2,8 @@ import { ColorObserver, prefersReducedMotion, supportsCanvas, createVisibilityHa
 
 const DEFAULT_CONFIG = {
   fftSize: 128,
-  barCount: 32,
-  barGap: 2,
+  gridSpacing: 60,  // Match grid pattern spacing
+  barGap: 4,
   barHeightMultiplier: 0.7,
   opacityBase: 0.15,
   opacityRange: 0.15
@@ -113,19 +113,19 @@ export class AudioVisualizer {
 
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-    const totalGapWidth = (this.config.barCount - 1) * this.config.barGap;
-    const totalBarWidth = this.canvas.width - totalGapWidth;
-    const barWidth = totalBarWidth / this.config.barCount;
+    // Calculate bar count based on grid spacing
+    const barCount = Math.floor(this.canvas.width / this.config.gridSpacing);
+    const barWidth = this.config.gridSpacing - this.config.barGap;
 
     const { r, g, b } = this.colorObserver.getRgb();
 
-    for (let i = 0; i < this.config.barCount; i++) {
-      const dataIndex = Math.floor((i / this.config.barCount) * this.bufferLength);
+    for (let i = 0; i < barCount; i++) {
+      const dataIndex = Math.floor((i / barCount) * this.bufferLength);
       const value = this.dataArray[dataIndex];
       const normalizedValue = value / 255;
       const barHeight = normalizedValue * this.canvas.height * this.config.barHeightMultiplier;
 
-      const x = i * (barWidth + this.config.barGap);
+      const x = i * this.config.gridSpacing + this.config.barGap / 2;
       const y = this.canvas.height - barHeight;
 
       const opacity = this.config.opacityBase + normalizedValue * this.config.opacityRange;

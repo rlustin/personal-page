@@ -3,6 +3,7 @@
 {% block description%}Mix {{ page.title }}{% endblock description %}
 
 {% block content %}
+<canvas id="grid-pattern"></canvas>
 <canvas id="audio-visualizer"></canvas>
 <p class="nav">
   <a href="../">← mixes</a>
@@ -11,7 +12,34 @@
   {{ page.title }}
   <time class="underdate">{{ page.date }}</time>
 </h1>
-<audio class="text-width" controls src="/{{ page.extra.mp3 }}" type="audio/mpeg"></audio>
+<div class="audio-container">
+  <audio id="audio-player" src="/{{ page.extra.mp3 }}" type="audio/mpeg"></audio>
+  <div class="custom-controls">
+    <div class="controls-row">
+      <button id="play-pause" class="control-button" aria-label="Play/Pause">
+        <span class="play-icon">▷</span>
+        <span class="pause-icon" style="display: none;">| |</span>
+      </button>
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-filled"></div>
+          <div class="time-display">
+            <span class="current-time">0:00</span>
+            <span class="duration">0:00</span>
+          </div>
+        </div>
+      </div>
+      <button id="mute-toggle" class="control-button" aria-label="Mute/Unmute">
+        <span class="volume-icon">♪</span>
+        <span class="mute-icon" style="display: none;">×</span>
+      </button>
+      <a href="/{{ page.extra.mp3 }}" download="{{ page.extra.mp3 }}" class="control-button download-button"
+        aria-label="Download MP3">
+        ↓
+      </a>
+    </div>
+  </div>
+</div>
 <div id="bpm-container" style="display: none;">
   <div class="bpm-display">
     <div class="bpm-content">
@@ -19,9 +47,8 @@
     </div>
   </div>
 </div>
-<p>
-  <a href="/{{ page.extra.mp3 }}" download="{{ page.title }}.mp3">mp3</a>
-</p>
+<div class="tracklist">
+  {{ page.content | safe }}
+</div>
 <script type="module" src="/js/bundle.js"></script>
-{{ page.content | safe }}
 {% endblock content %}
