@@ -539,15 +539,16 @@ nav.top {
 
 nav.index-nav {
   position: absolute;
-  top: 35vh;
-  left: 8%;
+  top: 20vh;
+  left: 50%;
+  transform: translateX(-50%);
   background: #fff;
-  border: 4px solid var(--border-color);
-  padding: 2rem;
+  border: 3px solid var(--border-color);
+  padding: 1.5rem;
   margin: 0;
-  width: calc(100% - 2rem - 8%);
-  max-width: 38rem;
-  box-shadow: 8px 8px 0 var(--border-color);
+  width: calc(100vw - 3rem - 12px);
+  max-width: 35rem;
+  box-shadow: 6px 6px 0 var(--border-color);
 
   .name-section {
     margin: 0;
@@ -555,10 +556,10 @@ nav.index-nav {
   }
 
   h1 {
-    font-size: 36px;
-    margin: 0 0 1.5rem 0;
-    padding: 0 0 1rem 0;
-    border-bottom: 4px solid var(--accent-primary);
+    font-size: 28px;
+    margin: 0 0 1rem 0;
+    padding: 0 0 0.75rem 0;
+    border-bottom: 3px solid var(--accent-primary);
     font-family: "intertight_bold";
     line-height: 1.1;
     background: none;
@@ -572,7 +573,7 @@ nav.index-nav {
     font-family: "intertight_bold";
     font-size: var(--small);
     color: var(--accent-primary);
-    margin: 1rem 0 0 0;
+    margin: 0.75rem 0 0 0;
     padding: 0;
     max-width: none;
     font-weight: bold;
@@ -581,11 +582,25 @@ nav.index-nav {
     letter-spacing: 0.15em;
     opacity: 1;
     transform: translateY(0);
+
+    .nowrap {
+      white-space: nowrap;
+    }
+  }
+
+  @media screen and (min-width: 320px) {
+    padding: 1.75rem;
+    width: calc(100vw - 4rem - 12px);
+
+    h1 {
+      font-size: 32px;
+    }
   }
 
   @media screen and (min-width: 480px) {
     top: 30vh;
     left: 12%;
+    transform: none;
     padding: 3rem;
     width: auto;
     max-width: 42rem;
@@ -611,24 +626,29 @@ nav.index-nav {
 
 nav.index-links {
   position: absolute;
-  top: calc(35vh + 8rem);
-  left: calc(8% + 100vw - 2rem - 8% + 2rem);
+  top: auto;
+  bottom: 15vh;
+  left: 50%;
+  transform: translateX(-50%);
   background: rgba(255, 255, 255, 0.3);
   border: 3px solid rgba(0, 0, 0, 0.15);
-  padding: 1.5rem;
+  padding: 1.25rem;
   opacity: 0.3;
-  transform: translateY(0);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.08);
   backdrop-filter: blur(8px);
+  width: calc(100vw - 3rem - 12px);
+  max-width: 35rem;
 
-  &:hover {
+  &:hover,
+  &:active,
+  &:focus-within {
     opacity: 1;
     background: #fff;
     border-color: var(--border-color);
-    transform: translateY(-4px);
-    box-shadow: 8px 8px 0 var(--border-color),
-                12px 12px 24px rgba(0, 0, 0, 0.12);
+    transform: translateX(-50%) translateY(-4px);
+    box-shadow: 6px 6px 0 var(--border-color),
+                8px 8px 16px rgba(0, 0, 0, 0.12);
   }
 
   ul {
@@ -639,8 +659,8 @@ nav.index-links {
   }
 
   li {
-    font-size: 20px;
-    margin: 0.6rem 0;
+    font-size: 18px;
+    margin: 0.5rem 0;
     font-family: "intertight_regular";
     max-width: none;
 
@@ -654,18 +674,34 @@ nav.index-links {
     font-weight: normal;
   }
 
+  @media screen and (min-width: 320px) {
+    padding: 1.5rem;
+    width: calc(100vw - 4rem - 12px);
+
+    li {
+      font-size: 19px;
+      margin: 0.55rem 0;
+    }
+  }
+
   @media screen and (min-width: 480px) {
     top: calc(30vh + 10rem);
+    bottom: auto;
     left: calc(12% + 42rem + 2rem);
+    transform: none;
     padding: 2rem;
     border-width: 4px;
+    width: auto;
+    max-width: none;
 
     li {
       font-size: 26px;
       margin: 0.85rem 0;
     }
 
-    &:hover {
+    &:hover,
+    &:active,
+    &:focus-within {
       transform: translateY(-6px);
       border-width: 5px;
     }

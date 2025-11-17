@@ -38,6 +38,8 @@ export class BackgroundPattern {
     this.resizeHandler = null;
     this.mouseMoveHandler = null;
     this.mouseLeaveHandler = null;
+    this.touchMoveHandler = null;
+    this.touchEndHandler = null;
     this.cleanupVisibility = null;
 
     this.colorObserver = new ColorObserver();
@@ -79,8 +81,24 @@ export class BackgroundPattern {
       this.mouse.y = null;
     };
 
+    this.touchMoveHandler = (e) => {
+      if (e.touches.length > 0) {
+        e.preventDefault();
+        this.mouse.x = e.touches[0].clientX;
+        this.mouse.y = e.touches[0].clientY;
+      }
+    };
+
+    this.touchEndHandler = () => {
+      this.mouse.x = null;
+      this.mouse.y = null;
+    };
+
     window.addEventListener('mousemove', this.mouseMoveHandler);
     window.addEventListener('mouseleave', this.mouseLeaveHandler);
+    window.addEventListener('touchmove', this.touchMoveHandler, { passive: false });
+    window.addEventListener('touchend', this.touchEndHandler);
+    window.addEventListener('touchcancel', this.touchEndHandler);
   }
 
   setupVisibilityHandler() {
@@ -200,6 +218,17 @@ export class BackgroundPattern {
     if (this.mouseLeaveHandler) {
       window.removeEventListener('mouseleave', this.mouseLeaveHandler);
       this.mouseLeaveHandler = null;
+    }
+
+    if (this.touchMoveHandler) {
+      window.removeEventListener('touchmove', this.touchMoveHandler);
+      this.touchMoveHandler = null;
+    }
+
+    if (this.touchEndHandler) {
+      window.removeEventListener('touchend', this.touchEndHandler);
+      window.removeEventListener('touchcancel', this.touchEndHandler);
+      this.touchEndHandler = null;
     }
 
     if (this.cleanupVisibility) {
