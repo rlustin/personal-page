@@ -382,17 +382,18 @@ p a {
     display: flex;
     align-items: center;
     gap: 1rem;
+    flex-wrap: wrap;
   }
 
   .control-button {
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
     flex-shrink: 0;
-    border: 3px solid var(--border-color);
+    border: 2px solid var(--border-color);
     background: rgba(255, 255, 255, 0.9);
     cursor: pointer;
     transition: all 0.2s ease;
-    font-size: 1.4rem;
+    font-size: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -403,55 +404,100 @@ p a {
     &:hover {
       background: rgba(255, 255, 255, 1);
       transform: translateY(-1px);
-      box-shadow: 4px 4px 0 var(--border-color);
+      box-shadow: 3px 3px 0 var(--border-color);
     }
 
     &:active {
       transform: translateY(1px);
-      box-shadow: 2px 2px 0 var(--border-color);
+      box-shadow: 1px 1px 0 var(--border-color);
     }
 
     &.download-button {
       text-decoration: none;
       color: var(--copy-color);
-      font-size: 1.6rem;
+      font-size: 1.2rem;
       line-height: 1;
-      padding-top: 0.22rem;
+      padding-top: 0.15rem;
       padding-bottom: 0;
     }
 
     .volume-icon {
-      font-size: 2.2rem;
+      font-size: 1.6rem;
       line-height: 1;
       display: inline-block;
-      transform: translateY(-0.25rem);
+      transform: translateY(-0.2rem);
+      color: var(--copy-color);
     }
 
     .mute-icon {
-      font-size: 2.2rem;
+      font-size: 1.6rem;
       line-height: 1;
       display: inline-block;
-      transform: translateY(-0.1rem);
+      transform: translateY(-0.05rem);
+      color: var(--copy-color);
     }
 
     .play-icon {
       display: inline-block;
+      color: var(--copy-color);
     }
 
     .pause-icon {
       display: inline-block;
-      transform: translateY(-0.1rem);
+      transform: translateY(-0.05rem);
+      color: var(--copy-color);
+    }
+
+    @media screen and (min-width: 480px) {
+      width: 3rem;
+      height: 3rem;
+      border: 3px solid var(--border-color);
+      font-size: 1.2rem;
+
+      &:hover {
+        box-shadow: 4px 4px 0 var(--border-color);
+      }
+
+      &:active {
+        box-shadow: 2px 2px 0 var(--border-color);
+      }
+
+      &.download-button {
+        font-size: 1.4rem;
+        padding-top: 0.2rem;
+      }
+
+      .volume-icon {
+        font-size: 2rem;
+        transform: translateY(-0.25rem);
+      }
+
+      .mute-icon {
+        font-size: 2rem;
+        transform: translateY(-0.1rem);
+      }
+
+      .pause-icon {
+        transform: translateY(-0.1rem);
+      }
     }
   }
 
   .progress-container {
     flex: 1;
+    min-width: 100%;
+    order: -1;
+
+    @media screen and (min-width: 480px) {
+      min-width: 0;
+      order: 0;
+    }
   }
 
   .progress-bar {
-    height: 3.5rem;
+    height: 2.5rem;
     background: rgba(0, 0, 0, 0.1);
-    border: 3px solid var(--border-color);
+    border: 2px solid var(--border-color);
     box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.1);
     position: relative;
     cursor: pointer;
@@ -459,6 +505,11 @@ p a {
 
     &:hover .progress-filled {
       opacity: 0.9;
+    }
+
+    @media screen and (min-width: 480px) {
+      height: 3rem;
+      border: 3px solid var(--border-color);
     }
   }
 
