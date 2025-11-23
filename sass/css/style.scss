@@ -215,6 +215,19 @@ h1 {
     border-bottom: 5px solid var(--accent-primary);
     box-shadow: 10px 10px 0 var(--border-color);
   }
+
+  &:not(.title):not(nav.index-nav &) {
+    width: calc(35rem + 1rem);
+    max-width: calc(100% - 1rem);
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+
+    @media screen and (min-width: 480px) {
+      width: calc(35rem + 2 * var(--first));
+      margin-left: calc(50% - 35rem/2 - var(--first));
+      margin-right: auto;
+    }
+  }
 }
 
 h2 {
@@ -238,6 +251,20 @@ h2 {
     margin-bottom: var(--second);
     margin-top: calc(2 * var(--second));
     border-left: 6px solid var(--accent-primary);
+  }
+
+  &:not(nav.top &) {
+    width: calc(35rem + 1rem);
+    max-width: calc(100% - 1rem);
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    box-sizing: border-box;
+
+    @media screen and (min-width: 480px) {
+      width: calc(35rem + 2 * var(--first));
+      margin-left: calc(50% - 35rem/2 - var(--first));
+      margin-right: auto;
+    }
   }
 }
 
