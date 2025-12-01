@@ -4,22 +4,24 @@
 
 {% block description %}Raphaël Lustin’s personal website.{% endblock %}
 
-{% block content %}
+{% block body_class %}page-home{% endblock %}
+
+{% block body %}
 <canvas id="background-pattern"></canvas>
-<nav class="index-nav" role="navigation" aria-label="Main navigation">
-  <div class="name-section">
+<div class="home-grid">
+  <div class="home-block home-block--name">
     <h1>Raphaël Lustin</h1>
   </div>
-</nav>
-<div class="index-links-integrated">
-  <a href="resume" class="nav-link" data-key="r" aria-label="View resume (press R)">
-    <span class="link-text">resume</span>
-    <span class="link-key" aria-hidden="true">R</span>
+
+  <a href="resume" class="home-block home-block--nav home-block--resume">
+    <span class="home-block__arrow">↗</span>
+    <span class="home-block__label">resume</span>
   </a>
-  <a href="mixes" class="nav-link" data-key="m" aria-label="Listen to mixes (press M)">
-    <span class="link-text">mixes</span>
-    <span class="link-key" aria-hidden="true">M</span>
+
+  <a href="mixes" class="home-block home-block--nav home-block--mixes">
+    <span class="home-block__arrow">↗</span>
+    <span class="home-block__label">mixes</span>
   </a>
 </div>
 <script type="module" src="/js/index-bundle.js"></script>
-{% endblock content %}
+{% endblock body %}

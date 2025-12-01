@@ -50,7 +50,7 @@ export class ColorObserver {
   }
 
   update() {
-    const color = getComputedStyle(document.documentElement)
+    const color = getComputedStyle(document.body)
       .getPropertyValue(this.propertyName)
       .trim();
 
