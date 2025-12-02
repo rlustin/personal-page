@@ -294,6 +294,8 @@ small,
   padding: 0.25rem 0.5rem;
   margin-left: 0.25rem;
   margin-top: 0.25rem;
+  max-width: 100%;
+  word-break: break-word;
 
   a:hover {
     text-decoration: none;
@@ -1237,3 +1239,417 @@ nav.top {
   display: none;
   pointer-events: none;
 }
+
+/* Timeline container */
+.timeline {
+  position: relative;
+  margin: 0 1rem var(--second);
+  padding-left: 2.5rem;
+
+  /* Vertical line - starts at header marker level */
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0.5rem;
+    top: 2rem;
+    bottom: 0;
+    width: 4px;
+    background: var(--accent-primary);
+  }
+
+  @media screen and (min-width: 480px) {
+    max-width: 38rem;
+    margin: 0 auto var(--second);
+    padding-left: 4rem;
+
+    &::before {
+      left: 0.75rem;
+      top: 2.75rem;
+      width: 5px;
+    }
+  }
+}
+
+/* Timeline header card (name + contact) */
+.timeline-item--header {
+  margin-left: -3rem;
+  margin-top: 6rem;
+  width: calc(100% + 3rem);
+  padding-left: 0;
+
+  @media screen and (min-width: 480px) {
+    margin-left: calc(-5.25rem - 4px);
+    margin-top: 0;
+    width: calc(100% - 1.25rem - 4px);
+  }
+}
+
+.timeline-header-card {
+  background: var(--surface-color);
+  border: 3px solid var(--border-color);
+  box-shadow: 6px 6px 0 var(--border-color);
+  padding: 2rem 1.25rem 1rem;
+  position: relative;
+
+  @media screen and (min-width: 480px) {
+    border: 4px solid var(--border-color);
+    box-shadow: 8px 8px 0 var(--border-color);
+    padding: 1.5rem 2rem;
+  }
+
+  /* Accent bar at top */
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: var(--accent-primary);
+  }
+
+  h1 {
+    font-size: var(--second);
+    margin: 0 0 0.75rem !important;
+    padding: 0 !important;
+    width: auto !important;
+    max-width: none !important;
+    background: none !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  address {
+    margin: 0;
+  }
+
+  .contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    @media screen and (min-width: 480px) {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.5rem;
+    }
+
+    li {
+      margin: 0;
+      padding: 0;
+      word-break: break-word;
+
+      &:before {
+        display: none;
+      }
+    }
+  }
+
+  @media screen and (min-width: 480px) {
+    border: 4px solid var(--border-color);
+    box-shadow: 10px 10px 0 var(--border-color);
+    padding: 2rem;
+
+    &::before {
+      height: 8px;
+    }
+
+    h1 {
+      font-size: var(--third);
+      margin-bottom: 1rem !important;
+    }
+  }
+}
+
+/* Timeline items */
+.timeline-item {
+  position: relative;
+  margin-bottom: var(--second);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &.timeline-item--header {
+    margin-bottom: 4rem;
+
+    @media screen and (min-width: 480px) {
+      margin-bottom: 5rem;
+    }
+  }
+}
+
+/* Aligned with card header center */
+.timeline-marker {
+  position: absolute;
+  left: -2.5rem;
+  top: 2rem;
+  width: 1rem;
+  height: 1rem;
+  background: var(--accent-primary);
+  border: 3px solid var(--border-color);
+  transform: translate(calc(-50% + 0.5rem + 2px), -50%);
+
+  @media screen and (min-width: 480px) {
+    left: -4rem;
+    top: 2.75rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 4px solid var(--border-color);
+    transform: translate(calc(-50% + 0.75rem + 2.5px), -50%);
+  }
+}
+
+/* Job entry cards */
+.timeline .job-entry {
+  background: var(--surface-color);
+  border: 3px solid var(--border-color);
+  box-shadow: 6px 6px 0 var(--border-color);
+  padding: 1rem 1.25rem;
+  margin: 0;
+
+  header {
+    h3 {
+      margin: 0 0 0.5rem;
+      padding: 0;
+      font-size: var(--base);
+      max-width: none;
+
+      @media screen and (min-width: 480px) {
+        font-size: var(--first);
+      }
+    }
+
+    .metadata {
+      margin: 0;
+      padding: 0;
+      max-width: none;
+    }
+  }
+
+  .description {
+    margin-top: var(--base);
+
+    p {
+      margin: 0 0 var(--base);
+      padding: 0;
+      max-width: none;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    h4 {
+      margin: var(--base) 0 0.5rem;
+      padding: 0;
+      font-size: var(--base);
+      max-width: none;
+
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      max-width: none;
+
+      li {
+        margin-bottom: 0.25rem;
+      }
+    }
+  }
+
+  @media screen and (min-width: 480px) {
+    border: 4px solid var(--border-color);
+    box-shadow: 8px 8px 0 var(--border-color);
+    padding: 1.5rem 2rem;
+  }
+}
+
+/* Education entries within timeline */
+.timeline .education-entry {
+  background: var(--surface-color);
+  border: 3px solid var(--border-color);
+  box-shadow: 6px 6px 0 var(--border-color);
+  padding: 1rem 1.25rem;
+  margin: 0;
+
+  h3 {
+    margin: 0 0 0.5rem;
+    padding: 0;
+    font-size: var(--base);
+    max-width: none;
+
+    .education-title {
+      display: inline;
+      margin-right: 0.25rem;
+    }
+
+    @media screen and (min-width: 480px) {
+      font-size: var(--first);
+    }
+  }
+
+  .metadata {
+    margin: 0;
+    padding: 0;
+    max-width: none;
+  }
+
+  .education-details {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: var(--base);
+  }
+
+  p {
+    margin: 0;
+    padding: 0;
+    max-width: none;
+  }
+
+  @media screen and (min-width: 480px) {
+    border: 4px solid var(--border-color);
+    box-shadow: 8px 8px 0 var(--border-color);
+    padding: 1.5rem 2rem;
+  }
+}
+
+/* Timeline connector: horizontal line from marker to card */
+.connector-line .timeline-item:not(.timeline-item--header):not(.timeline-item--bookend)::after {
+  content: "";
+  position: absolute;
+  left: -1.5rem;
+  top: 2rem;
+  transform: translateY(-50%);
+  width: 1.5rem;
+  height: 3px;
+  background: var(--border-color);
+
+  @media screen and (min-width: 480px) {
+    left: -2.5rem;
+    top: 2.75rem;
+    width: 2.5rem;
+    height: 4px;
+  }
+}
+
+/* Bookend item - mirrors header positioning */
+.timeline-item--bookend {
+  margin-left: -3rem;
+  width: calc(100% + 3rem);
+  padding-left: 0;
+  margin-top: 4rem;
+
+  @media screen and (min-width: 480px) {
+    margin-left: calc(-5.25rem - 4px);
+    width: calc(100% - 1.25rem - 4px);
+    margin-top: 5rem;
+  }
+}
+
+/* Bookend card - mirrors header card exactly */
+.timeline-bookend-card {
+  background: var(--surface-color);
+  border: 3px solid var(--border-color);
+  box-shadow: 6px 6px 0 var(--border-color);
+  padding: 1rem 1.25rem 1.5rem;
+  position: relative;
+
+  /* Accent bar at bottom - closing bracket */
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: var(--accent-primary);
+  }
+
+  h2 {
+    font-size: var(--second);
+    margin: 0 0 1rem !important;
+    padding: 0 !important;
+    width: auto !important;
+    max-width: none !important;
+    font-family: "intertight_bold";
+    line-height: 1.1;
+    background: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    letter-spacing: -0.02em;
+
+    @media screen and (min-width: 480px) {
+      font-size: var(--third);
+      margin-bottom: 1.5rem !important;
+    }
+  }
+
+  @media screen and (min-width: 480px) {
+    border: 4px solid var(--border-color);
+    box-shadow: 10px 10px 0 var(--border-color);
+    padding: 1.5rem 2rem 2rem;
+
+    &::after {
+      height: 8px;
+    }
+  }
+}
+
+/* Interests grid inside bookend */
+.timeline-bookend-card .interests-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+
+  @media screen and (min-width: 480px) {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+}
+
+/* Interest items - simpler style inside the bookend */
+.timeline-bookend-card .interest-item {
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--border-color);
+
+  &:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  @media screen and (min-width: 480px) {
+    padding-bottom: 0;
+    border-bottom: none;
+    padding-left: 1rem;
+    border-left: 5px solid var(--accent-primary);
+  }
+
+  h3 {
+    margin: 0 0 0.5rem;
+    padding: 0;
+    font-size: var(--base);
+    max-width: none;
+    font-family: "intertight_bold";
+
+    @media screen and (min-width: 480px) {
+      font-size: var(--first);
+    }
+  }
+
+  p {
+    margin: 0;
+    padding: 0;
+    max-width: none;
+    font-size: var(--base);
+    line-height: 1.4;
+  }
+}
+
