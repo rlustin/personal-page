@@ -20,8 +20,8 @@
         <div class="mix-item">
           <span class="mix-title">{{ page.title }}</span>
           <p class="metadata">
-            {{ page.date }}
-            {% if page.extra.duration %} · ♪ {{ page.extra.duration }}{% endif %}
+            <span class="mix-date">{{ page.date }}</span>
+            {% if page.extra.duration %}<span class="mix-duration">{{ page.extra.duration }}</span>{% endif %}
           </p>
         </div>
       </a>
