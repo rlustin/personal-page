@@ -1,12 +1,17 @@
-import { ColorObserver, prefersReducedMotion, supportsCanvas, createVisibilityHandler } from './utils.js';
+import {
+  ColorObserver,
+  prefersReducedMotion,
+  supportsCanvas,
+  createVisibilityHandler,
+} from './utils.js';
 
 const DEFAULT_CONFIG = {
   fftSize: 128,
-  gridSpacing: 60,  // Match grid pattern spacing
+  gridSpacing: 60, // Match grid pattern spacing
   barGap: 4,
   barHeightMultiplier: 0.7,
   opacityBase: 0.15,
-  opacityRange: 0.15
+  opacityRange: 0.15,
 };
 
 /**

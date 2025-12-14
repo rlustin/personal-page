@@ -1,4 +1,9 @@
-import { ColorObserver, prefersReducedMotion, supportsCanvas, createVisibilityHandler } from './utils.js';
+import {
+  ColorObserver,
+  prefersReducedMotion,
+  supportsCanvas,
+  createVisibilityHandler,
+} from './utils.js';
 
 const DEFAULT_CONFIG = {
   gridSpacing: 60,
@@ -7,7 +12,7 @@ const DEFAULT_CONFIG = {
   baseOpacity: 0.06,
   pulseOpacityRange: 0.06,
   pulseSpeed: 0.0008,
-  maxLineWidth: 2.5
+  maxLineWidth: 2.5,
 };
 
 /**
@@ -167,7 +172,9 @@ export class GridPattern {
         opacity += smoothInfluence * 0.2;
 
         // Increase line width near mouse
-        lineWidth = this.config.lineWidth + smoothInfluence * (this.config.maxLineWidth - this.config.lineWidth);
+        lineWidth =
+          this.config.lineWidth +
+          smoothInfluence * (this.config.maxLineWidth - this.config.lineWidth);
       }
     }
 

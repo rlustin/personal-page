@@ -1,26 +1,20 @@
-{% extends "base.html" %}
-
-{% block title %}Raphaël Lustin{% endblock %}
-
-{% block description %}Raphaël Lustin’s personal website.{% endblock %}
-
-{% block body_class %}page-home{% endblock %}
-
-{% block body %}
+{% extends "base.html" %} {% block title %}Raphaël Lustin{% endblock %} {% block description
+%}Raphaël Lustin’s personal website.{% endblock %} {% block body_class %}page-home{% endblock %} {%
+block body %}
 <canvas id="background-pattern"></canvas>
 <div class="home-grid">
-  <div class="home-block home-block--name">
+  <div class="home-block home-block-name">
     <h1>Raphaël Lustin</h1>
   </div>
 
-  <a href="resume" class="home-block home-block--nav home-block--resume">
-    <span class="home-block__arrow">↗</span>
-    <span class="home-block__label">resume</span>
+  <a href="resume" class="home-block home-block-nav home-block-resume">
+    <span class="home-block-arrow">↗</span>
+    <span class="home-block-label">resume</span>
   </a>
 
-  <a href="mixes" class="home-block home-block--nav home-block--mixes">
-    <span class="home-block__arrow">↗</span>
-    <span class="home-block__label">mixes</span>
+  <a href="mixes" class="home-block home-block-nav home-block-mixes">
+    <span class="home-block-arrow">↗</span>
+    <span class="home-block-label">mixes</span>
   </a>
 </div>
 <script type="module" src="/js/index-bundle.js"></script>

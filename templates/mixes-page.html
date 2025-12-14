@@ -1,10 +1,5 @@
-{% extends "base.html" %}
-
-{% block description%}Mix {{ page.title }}{% endblock description %}
-
-{% block body_class %}page-mixes{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% block description%}Mix {{ page.title }}{% endblock description %} {%
+block body_class %}page-mixes{% endblock %} {% block content %}
 <canvas id="grid-pattern"></canvas>
 <canvas id="audio-visualizer"></canvas>
 <p class="nav">
@@ -20,7 +15,7 @@
     <div class="controls-row">
       <button id="play-pause" class="control-button" aria-label="Play/Pause">
         <span class="play-icon">▷</span>
-        <span class="pause-icon" style="display: none;">| |</span>
+        <span class="pause-icon" style="display: none">| |</span>
       </button>
       <div class="progress-container">
         <div class="progress-bar">
@@ -33,24 +28,26 @@
       </div>
       <button id="mute-toggle" class="control-button" aria-label="Mute/Unmute">
         <span class="volume-icon">♪</span>
-        <span class="mute-icon" style="display: none;">×</span>
+        <span class="mute-icon" style="display: none">×</span>
       </button>
-      <a href="/{{ page.extra.mp3 }}" download="{{ page.extra.mp3 }}" class="control-button download-button"
-        aria-label="Download MP3">
+      <a
+        href="/{{ page.extra.mp3 }}"
+        download="{{ page.extra.mp3 }}"
+        class="control-button download-button"
+        aria-label="Download MP3"
+      >
         ↓
       </a>
     </div>
   </div>
 </div>
-<div id="bpm-container" style="display: none;">
+<div id="bpm-container" style="display: none">
   <div class="bpm-display">
     <div class="bpm-content">
       <div class="bpm-value"></div>
     </div>
   </div>
 </div>
-<div class="tracklist">
-  {{ page.content | safe }}
-</div>
+<div class="tracklist">{{ page.content | safe }}</div>
 <script type="module" src="/js/bundle.js"></script>
 {% endblock content %}

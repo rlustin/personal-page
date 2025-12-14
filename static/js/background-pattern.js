@@ -1,4 +1,9 @@
-import { ColorObserver, prefersReducedMotion, supportsCanvas, createVisibilityHandler } from './utils.js';
+import {
+  ColorObserver,
+  prefersReducedMotion,
+  supportsCanvas,
+  createVisibilityHandler,
+} from './utils.js';
 
 const DEFAULT_CONFIG = {
   particleCount: 40,
@@ -7,7 +12,7 @@ const DEFAULT_CONFIG = {
   mouseInfluenceRadius: 150,
   mouseInfluenceStrength: 0.3,
   animationSpeed: 0.0005,
-  pulseSpeed: 0.002
+  pulseSpeed: 0.002,
 };
 
 /**
@@ -60,7 +65,7 @@ export class BackgroundPattern {
       this.canvas.height = window.innerHeight;
 
       if (oldWidth > 0 && oldHeight > 0) {
-        this.particles.forEach(particle => {
+        this.particles.forEach((particle) => {
           particle.baseX = (particle.baseX / oldWidth) * this.canvas.width;
           particle.baseY = (particle.baseY / oldHeight) * this.canvas.height;
         });
@@ -119,7 +124,7 @@ export class BackgroundPattern {
         size: this.config.particleBaseSize + Math.random() * this.config.particleSizeVariance,
         speedX: (Math.random() - 0.5) * 0.5,
         speedY: (Math.random() - 0.5) * 0.5,
-        phase: Math.random() * Math.PI * 2
+        phase: Math.random() * Math.PI * 2,
       });
     }
   }
@@ -183,7 +188,8 @@ export class BackgroundPattern {
         const distance = Math.sqrt(dx * dx + dy * dy);
 
         if (distance < this.config.mouseInfluenceRadius) {
-          const force = (1 - distance / this.config.mouseInfluenceRadius) * this.config.mouseInfluenceStrength;
+          const force =
+            (1 - distance / this.config.mouseInfluenceRadius) * this.config.mouseInfluenceStrength;
           x += dx * force;
           y += dy * force;
         }
@@ -192,7 +198,8 @@ export class BackgroundPattern {
       particle.x = x;
       particle.y = y;
 
-      const pulse = Math.sin(this.time * 1000 * this.config.pulseSpeed + particle.phase) * 0.5 + 0.5;
+      const pulse =
+        Math.sin(this.time * 1000 * this.config.pulseSpeed + particle.phase) * 0.5 + 0.5;
       const opacity = 0.15 + pulse * 0.15;
 
       this.ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${opacity})`;

@@ -40,13 +40,11 @@ async function build() {
   try {
     if (isWatch) {
       console.log('👀 Watching for changes...');
-      const contexts = await Promise.all(
-        buildConfigs.map(config => esbuild.context(config))
-      );
-      await Promise.all(contexts.map(ctx => ctx.watch()));
+      const contexts = await Promise.all(buildConfigs.map((config) => esbuild.context(config)));
+      await Promise.all(contexts.map((ctx) => ctx.watch()));
     } else {
       console.log('🔨 Building JavaScript bundles...');
-      await Promise.all(buildConfigs.map(config => esbuild.build(config)));
+      await Promise.all(buildConfigs.map((config) => esbuild.build(config)));
       console.log('✅ Build complete!');
     }
   } catch (error) {

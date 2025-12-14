@@ -1,12 +1,6 @@
-{% extends "base.html" %}
-
-{% block title %}Mixes{% endblock %}
-
-{% block description %}A selection of personal music mixes.{% endblock %}
-
-{% block body_class %}page-mixes{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% block title %}Mixes{% endblock %} {% block description %}A selection of
+personal music mixes.{% endblock %} {% block body_class %}page-mixes{% endblock %} {% block content
+%}
 <canvas id="grid-pattern"></canvas>
 <p class="nav">
   <a href="../">← home</a>
@@ -21,7 +15,8 @@
           <span class="mix-title">{{ page.title }}</span>
           <p class="metadata">
             <span class="mix-date">{{ page.date }}</span>
-            {% if page.extra.duration %}<span class="mix-duration">{{ page.extra.duration }}</span>{% endif %}
+            {% if page.extra.duration %}<span class="mix-duration">{{ page.extra.duration }}</span
+            >{% endif %}
           </p>
         </div>
       </a>

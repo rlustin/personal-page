@@ -1,4 +1,4 @@
-.PHONY: build clean serve deploy help install
+.PHONY: build clean serve deploy help install lint lintfix
 
 all: build
 
@@ -6,6 +6,18 @@ install:
 	@echo "📦 Installing dependencies..."
 	npm install
 	@echo "✅ Dependencies installed"
+
+lint:
+	@echo "🔍 Checking code formatting and linting..."
+	npm run format:check
+	npm run lint:css
+	@echo "✅ Lint check complete"
+
+lintfix:
+	@echo "🔧 Fixing code formatting and linting issues..."
+	npm run format
+	npm run lint:css:fix
+	@echo "✅ Lint fix complete"
 
 build:
 	@echo "🔨 Building site and JavaScript..."
@@ -42,6 +54,8 @@ deploy: build
 help:
 	@echo "Available targets:"
 	@echo "  make install    - Install npm dependencies"
+	@echo "  make lint       - Check formatting (Prettier) and linting (Stylelint)"
+	@echo "  make lintfix    - Fix formatting and linting issues"
 	@echo "  make build      - Build site and JavaScript for deployment"
 	@echo "  make clean      - Remove build artifacts"
 	@echo "  make rebuild    - Clean and rebuild from scratch"

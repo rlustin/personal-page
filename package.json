@@ -7,12 +7,20 @@
   "scripts": {
     "build": "node build.js",
     "dev": "node build.js --watch",
-    "install-deps": "npm install"
+    "install-deps": "npm install",
+    "format": "prettier --write \"**/*.{html,css,scss,js,json}\"",
+    "format:check": "prettier --check \"**/*.{html,css,scss,js,json}\"",
+    "lint:css": "stylelint \"**/*.{css,scss}\"",
+    "lint:css:fix": "stylelint \"**/*.{css,scss}\" --fix"
   },
   "dependencies": {
     "realtime-bpm-analyzer": "^4.0.2"
   },
   "devDependencies": {
-    "esbuild": "^0.20.0"
+    "esbuild": "^0.20.0",
+    "prettier": "^3.7.4",
+    "stylelint": "^16.26.1",
+    "stylelint-config-prettier-scss": "^1.0.0",
+    "stylelint-config-standard-scss": "^16.0.0"
   }
 }

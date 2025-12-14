@@ -1,194 +1,185 @@
-{% extends "base.html" %}
-
-{% block title %}Raphaël Lustin’s resume{% endblock %}
-
-{% block description %}My resume.{% endblock %}
-
-{% block body_class %}page-resume connector-line{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% block title %}Raphaël Lustin’s resume{% endblock %} {% block
+description %}My resume.{% endblock %} {% block body_class %}page-resume connector-line{% endblock
+%} {% block content %}
 <p class="nav">
-    <a href="/">← home</a>
+  <a href="/">← home</a>
 </p>
 
 <div class="timeline">
-    <div class="timeline-item timeline-item--header">
-        <div class="timeline-header-card">
-            <h1>Raphaël Lustin</h1>
-            <address>
-                <ul class="contacts" aria-label="Contact information">
-                    <li>Paris, France</li>
-                    <li>raphael@lustin.fr</li>
-                    <li><a href="https://github.com/rlustin">rlustin</a></li>
-                </ul>
-            </address>
+  <div class="timeline-item timeline-item-header">
+    <div class="timeline-header-card">
+      <h1>Raphaël Lustin</h1>
+      <address>
+        <ul class="contacts" aria-label="Contact information">
+          <li>Paris, France</li>
+          <li>raphael@lustin.fr</li>
+          <li><a href="https://github.com/rlustin">rlustin</a></li>
+        </ul>
+      </address>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <span class="timeline-marker"></span>
+    <article class="job-entry">
+      <header>
+        <h3>
+          <span class="job-title">Senior Staff Software Engineer</span>
+          <span class="organization">
+            <a href="https://memo.bank">Memo Bank</a>
+          </span>
+        </h3>
+
+        <p class="metadata">
+          <span class="location">Paris, France</span> —
+          <time datetime="2017-05">since May 2017</time>
+        </p>
+      </header>
+
+      <div class="description">
+        <p>
+          Joined on day one as one of the first three employees to build a new bank for SMEs. Grew
+          from engineer to Senior Staff, focusing primarily on payments infrastructure and interbank
+          connectivity. Designed and implemented a distributed Core Banking System.
+        </p>
+        <p>
+          Built connectivity to 10+ payment systems: from initial indirect SEPA through a partner
+          bank to direct participation in EBA Clearing’s STEP2 and RT1, VISA card issuing as a
+          principal member, European Central Bank systems, international wires through JP Morgan,
+          and Swift services including messaging services, Universal Tracker, Payment Prevalidation,
+          and FPAD anti-fraud. Passed the Swift Customer Security Programme certification. This
+          infrastructure scaled from first customer transactions in 2020 to multi-billion euro
+          monthly volume.
+        </p>
+        <p>
+          Built team autonomy by documenting payment systems and enabling colleagues to handle
+          complex testing cycles and production rollouts independently. Represented our bank
+          externally, managing ongoing relationships with EBA Clearing and Swift.
+        </p>
+      </div>
+    </article>
+  </div>
+
+  <div class="timeline-item">
+    <span class="timeline-marker"></span>
+    <article class="job-entry">
+      <header>
+        <h3>
+          <span class="job-title">Full-stack developer</span>
+          <span class="organization">
+            <a href="https://www.captaintrain.com">Captain Train</a>
+          </span>
+        </h3>
+
+        <p class="metadata">
+          <span class="location">Paris, France</span> —
+          <time datetime="2015-09/2017-03">September 2015 to March 2017 (1 year and 6 months)</time>
+        </p>
+      </header>
+
+      <div class="description">
+        <p>
+          Career transition into software engineering at Captain Train (now Trainline), a company
+          known for its customer-obsessed approach to train ticketing.
+        </p>
+        <p>
+          Built internal tools for the customer support team: back-office systems, ticket
+          management, and agent workflows. Worked full-stack to eliminate product issues that drove
+          customer contacts. Provided data analysis for customer experience and carrier
+          reconciliation.
+        </p>
+      </div>
+    </article>
+  </div>
+
+  <div class="timeline-item">
+    <span class="timeline-marker"></span>
+    <article class="job-entry">
+      <header>
+        <h3>
+          <span class="job-title">Operations Director</span>
+          <span class="organization">
+            <a href="https://www.u-pro.fr/">U Pro</a>,
+            <a href="http://www.hopscotchgroupe.com">Hopscotch Global PR Group</a>
+          </span>
+        </h3>
+
+        <p class="metadata">
+          <span class="location">Paris, France</span> —
+          <time datetime="2012-02/2015-09"
+            >February 2012 to September 2015 (3 years and 8 months)</time
+          >
+        </p>
+      </header>
+
+      <div class="description">
+        <p>Technical agency specializing in communications solutions for large corporations.</p>
+        <p>
+          Led a production team of 9 (one project manager, eight developers). Established
+          engineering best practices: coding standards, testing, code reviews, continuous
+          integration. Managed client relationships, budgets, and partner negotiations. Administered
+          20 physical servers and multiple CDNs.
+        </p>
+        <p>
+          Built Netexplo Academy, a digital literacy program deployed to 900,000 employees across 20
+          companies. Developed internal products including Rainbow (company management tool), Castor
+          (corporate webcasting), and The Places (venue sourcing for
+          <a href="https://www.hopscotchgroupe.com">Hopscotch Global PR Group</a>).
+        </p>
+      </div>
+    </article>
+  </div>
+
+  <div class="timeline-item timeline-item-education">
+    <span class="timeline-marker"></span>
+    <article class="education-entry">
+      <h3>
+        <span class="education-title"><strong>Master of Engineering</strong> Degree</span>
+        <span class="organization"><a href="https://www.insa-lyon.fr/">INSA de Lyon</a></span>
+      </h3>
+      <p class="metadata">
+        <i>Grande École</i> in <a href="https://gi.insa-lyon.fr/">Industrial engineering</a> —
+        Graduated <time datetime="2012">2012</time>
+      </p>
+      <p class="education-details">
+        Including one term at
+        <a href="https://www.kth.se/en">Royal Institute of Technology (KTH)</a>, Stockholm, Sweden
+      </p>
+    </article>
+  </div>
+
+  <div class="timeline-item timeline-item-bookend">
+    <div class="timeline-bookend-card">
+      <h2>Interests</h2>
+      <div class="interests-grid">
+        <div class="interest-item">
+          <h3>Music</h3>
+          <p>
+            Electronic music production and DJing. Classical foundation: 16 years of bassoon, some
+            trombone in brass bands. Deep into bass music and hybrid dancefloor sounds from the UK
+            and beyond.
+          </p>
         </div>
-    </div>
-    <div class="timeline-item">
-        <span class="timeline-marker"></span>
-        <article class="job-entry">
-            <header>
-                <h3>
-                    <span class="job-title">Senior Staff Software Engineer</span>
-                    <span class="organization">
-                        <a href="https://memo.bank">Memo Bank</a>
-                    </span>
-                </h3>
-
-                <p class="metadata">
-                    <span class="location">Paris, France</span> — <time datetime="2017-05">since May 2017</time>
-                </p>
-            </header>
-
-            <div class="description">
-                <p>
-                    Joined on day one as one of the first three employees to build a new bank for SMEs.
-                    Grew from engineer to Senior Staff, focusing primarily on payments infrastructure and
-                    interbank connectivity. Designed and implemented a distributed Core Banking System.
-                </p>
-                <p>
-                    Built connectivity to 10+ payment systems: from initial indirect SEPA
-                    through a partner bank to direct participation in EBA Clearing’s STEP2
-                    and RT1, VISA card issuing as a principal member, European Central
-                    Bank systems, international wires through JP Morgan, and Swift
-                    services including messaging services, Universal Tracker, Payment
-                    Prevalidation, and FPAD anti-fraud. Passed the Swift Customer Security
-                    Programme certification. This infrastructure scaled from first customer
-                    transactions in 2020 to multi-billion euro monthly volume.
-                </p>
-                <p>
-                    Built team autonomy by documenting payment systems and enabling colleagues to handle
-                    complex testing cycles and production rollouts independently. Represented our bank
-                    externally, managing ongoing relationships with EBA Clearing and Swift.
-                </p>
-            </div>
-        </article>
-    </div>
-
-    <div class="timeline-item">
-        <span class="timeline-marker"></span>
-        <article class="job-entry">
-            <header>
-                <h3>
-                    <span class="job-title">Full-stack developer</span>
-                    <span class="organization">
-                        <a href="https://www.captaintrain.com">Captain Train</a>
-                    </span>
-                </h3>
-
-                <p class="metadata">
-                    <span class="location">Paris, France</span> — <time datetime="2015-09/2017-03">September 2015 to March 2017 (1 year and 6 months)</time>
-                </p>
-            </header>
-
-            <div class="description">
-                <p>
-                    Career transition into software engineering at Captain Train
-                    (now Trainline), a company known for its customer-obsessed
-                    approach to train ticketing.
-                </p>
-                <p>
-                    Built internal tools for the customer support team: back-office
-                    systems, ticket management, and agent workflows. Worked full-stack
-                    to eliminate product issues that drove customer contacts. Provided
-                    data analysis for customer experience and carrier reconciliation.
-                </p>
-            </div>
-        </article>
-    </div>
-
-    <div class="timeline-item">
-        <span class="timeline-marker"></span>
-        <article class="job-entry">
-            <header>
-                <h3>
-                    <span class="job-title">Operations Director</span>
-                    <span class="organization">
-                        <a href="https://www.u-pro.fr/">U Pro</a>,
-                        <a href="http://www.hopscotchgroupe.com">Hopscotch Global PR Group</a>
-                    </span>
-                </h3>
-
-                <p class="metadata">
-                    <span class="location">Paris, France</span> — <time datetime="2012-02/2015-09">February 2012 to September 2015 (3 years and 8 months)</time>
-                </p>
-            </header>
-
-            <div class="description">
-                <p>
-                    Technical agency specializing in communications solutions
-                    for large corporations.
-                </p>
-                <p>
-                    Led a production team of 9 (one project manager, eight developers).
-                    Established engineering best practices: coding standards, testing,
-                    code reviews, continuous integration. Managed client relationships,
-                    budgets, and partner negotiations. Administered 20 physical servers
-                    and multiple CDNs.
-                </p>
-                <p>
-                    Built Netexplo Academy, a digital literacy program deployed to
-                    900,000 employees across 20 companies. Developed internal products
-                    including Rainbow (company management tool), Castor (corporate
-                    webcasting), and The Places (venue sourcing for
-                    <a href="https://www.hopscotchgroupe.com">Hopscotch Global PR Group</a>).
-                </p>
-            </div>
-        </article>
-    </div>
-
-    <div class="timeline-item timeline-item--education">
-        <span class="timeline-marker"></span>
-        <article class="education-entry">
-            <h3>
-                <span class="education-title"><strong>Master of Engineering</strong> Degree</span>
-                <span class="organization"><a href="https://www.insa-lyon.fr/">INSA de Lyon</a></span>
-            </h3>
-            <p class="metadata">
-                <i>Grande École</i> in <a href="https://gi.insa-lyon.fr/">Industrial engineering</a>
-                — Graduated <time datetime="2012">2012</time>
-            </p>
-            <p class="education-details">
-                Including one term at
-                <a href="https://www.kth.se/en">Royal Institute of Technology (KTH)</a>,
-                Stockholm, Sweden
-            </p>
-        </article>
-    </div>
-
-    <div class="timeline-item timeline-item--bookend">
-        <div class="timeline-bookend-card">
-            <h2>Interests</h2>
-            <div class="interests-grid">
-                <div class="interest-item">
-                    <h3>Music</h3>
-                    <p>
-                        Electronic music production and DJing. Classical foundation: 16 years of bassoon,
-                        some trombone in brass bands. Deep into bass music and hybrid dancefloor sounds
-                        from the UK and beyond.
-                    </p>
-                </div>
-                <div class="interest-item">
-                    <h3>Computing</h3>
-                    <p>
-                        Open source and digital privacy advocate. Drawn to distributed systems,
-                        functional programming, and developer tooling. Rust enthusiast,
-                        former <em>Mozilla</em> contributor.
-                    </p>
-                </div>
-                <div class="interest-item">
-                    <h3>Photography</h3>
-                    <p>
-                        Analog and digital photography. Darkroom printing.
-                        Partial to medium format and expired film.
-                    </p>
-                </div>
-                <div class="interest-item">
-                    <h3>Cooking</h3>
-                    <p>Curious about every cuisine. Scales from intimate dinners to feeding forty.</p>
-                </div>
-            </div>
+        <div class="interest-item">
+          <h3>Computing</h3>
+          <p>
+            Open source and digital privacy advocate. Drawn to distributed systems, functional
+            programming, and developer tooling. Rust enthusiast, former
+            <em>Mozilla</em> contributor.
+          </p>
         </div>
+        <div class="interest-item">
+          <h3>Photography</h3>
+          <p>
+            Analog and digital photography. Darkroom printing. Partial to medium format and expired
+            film.
+          </p>
+        </div>
+        <div class="interest-item">
+          <h3>Cooking</h3>
+          <p>Curious about every cuisine. Scales from intimate dinners to feeding forty.</p>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 {% endblock content %}

@@ -9,7 +9,7 @@ export function parseColor(color) {
     return {
       r: parseInt(hexMatch[1], 16),
       g: parseInt(hexMatch[2], 16),
-      b: parseInt(hexMatch[3], 16)
+      b: parseInt(hexMatch[3], 16),
     };
   }
 
@@ -18,7 +18,7 @@ export function parseColor(color) {
     return {
       r: parseInt(rgbMatch[1], 10),
       g: parseInt(rgbMatch[2], 10),
-      b: parseInt(rgbMatch[3], 10)
+      b: parseInt(rgbMatch[3], 10),
     };
   }
 
@@ -50,9 +50,7 @@ export class ColorObserver {
   }
 
   update() {
-    const color = getComputedStyle(document.body)
-      .getPropertyValue(this.propertyName)
-      .trim();
+    const color = getComputedStyle(document.body).getPropertyValue(this.propertyName).trim();
 
     if (color && color !== this.cachedColor) {
       this.cachedColor = color;
