@@ -4,5 +4,11 @@
 
 ## Development
 
-- [Install zola](https://www.getzola.org/documentation/getting-started/installation/);
-- Use `zola serve` or `zola build`.
+### Prerequisites
+
+- [Zola](https://www.getzola.org/documentation/getting-started/installation/)
+- [Node.js](https://nodejs.org/)
+
+### Getting Started
+
+Run `make` to see available commands.
