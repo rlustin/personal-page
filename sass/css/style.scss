@@ -318,28 +318,6 @@ small,
   }
 }
 
-.organization {
-  font-size: var(--small);
-  display: inline-block;
-  background: var(--surface-color);
-  border: 2px solid var(--border-color);
-  box-shadow: 2px 2px 0 var(--accent-primary);
-  padding: 0.25rem 0.5rem;
-  margin-left: 0.25rem;
-  margin-top: 0.25rem;
-  max-width: 100%;
-  overflow-wrap: break-word;
-
-  a:hover {
-    text-decoration: none;
-  }
-
-  @media screen and (width >= 480px) {
-    box-shadow: 3px 3px 0 var(--accent-primary);
-    margin-left: 0.5rem;
-  }
-}
-
 .job-entry,
 .education-entry {
   margin-bottom: var(--third);
@@ -348,10 +326,6 @@ small,
 .job-title {
   display: inline-block;
   margin-right: 0.5rem;
-}
-
-.location {
-  display: inline;
 }
 
 address {
