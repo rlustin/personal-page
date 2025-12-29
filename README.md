@@ -1,6 +1,6 @@
 # Raphaël Lustin’s personal page
 
-https://www.lustin.fr
+[lustin.fr](https://lustin.fr)
 
 ## Development
 
