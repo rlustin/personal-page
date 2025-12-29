@@ -1,46 +1,46 @@
 .PHONY: build clean serve deploy help install lint lintfix
+.DEFAULT_GOAL = help
 
 all: build
 
-install:
+install:  ## Install npm dependencies
 	@echo "📦 Installing dependencies..."
 	npm install
 	@echo "✅ Dependencies installed"
 
-lint:
+lint:  ## Check formatting (Prettier) and linting (Stylelint)
 	@echo "🔍 Checking code formatting and linting..."
 	npm run format:check
 	npm run lint:css
 	@echo "✅ Lint check complete"
 
-lintfix:
+lintfix:  ## Fix formatting and linting issues
 	@echo "🔧 Fixing code formatting and linting issues..."
 	npm run format
 	npm run lint:css:fix
 	@echo "✅ Lint fix complete"
 
-build:
+build:  ## Build site and JavaScript for deployment
 	@echo "🔨 Building site and JavaScript..."
 	zola build
 	npm run build
 	@echo "✅ Build complete! Ready to deploy from public/"
 
-clean:
+clean:  ## Remove build artifacts
 	@echo "🧹 Cleaning build artifacts..."
 	rm -rf public
 	@echo "✅ Clean complete"
 
-rebuild: clean build
+rebuild: clean build  ## Clean and rebuild from scratch
 
-# Development server with live JavaScript rebuild
-serve:
+serve:  ## Start development server with JS watching
 	@echo "🚀 Starting development server with JavaScript watching..."
 	@echo "Press Ctrl+C to stop both servers"
 	@trap 'kill 0' EXIT; \
 	zola serve & \
 	npm run dev
 
-deploy: build
+deploy: build  ## Build and show deployment instructions
 	@echo ""
 	@echo "✅ Build complete!"
 	@echo ""
@@ -51,14 +51,7 @@ deploy: build
 	@echo "  - Or use your preferred deployment method"
 	@echo ""
 
-help:
-	@echo "Available targets:"
-	@echo "  make install    - Install npm dependencies"
-	@echo "  make lint       - Check formatting (Prettier) and linting (Stylelint)"
-	@echo "  make lintfix    - Fix formatting and linting issues"
-	@echo "  make build      - Build site and JavaScript for deployment"
-	@echo "  make clean      - Remove build artifacts"
-	@echo "  make rebuild    - Clean and rebuild from scratch"
-	@echo "  make serve      - Start development server with JS watching"
-	@echo "  make deploy     - Build and show deployment instructions"
-	@echo "  make help       - Show this help message"
+help:  ## Display available targets
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
+	sort | awk 'BEGIN {FS = ":.*?## "}; \
+	{printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}'
