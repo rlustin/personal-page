@@ -800,20 +800,6 @@ nav.top {
     gap: 0.5rem;
   }
 
-  .mix-date {
-    opacity: 0.6;
-  }
-
-  .mix-duration {
-    display: inline-block;
-    background: var(--accent-primary);
-    color: var(--surface-color);
-    padding: 0.15rem 0.4rem;
-    font-size: 0.7rem;
-    font-family: 'inter_bold', sans-serif;
-    letter-spacing: 0.02em;
-  }
-
   // Varied horizontal shadows for visual interest - base styles
   li:nth-of-type(8n + 2):not(:first-of-type) a.mix-link {
     box-shadow: 8px 6px 0 var(--border-color);
