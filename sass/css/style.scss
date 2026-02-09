@@ -1,15 +1,33 @@
 @font-face {
-  font-family: 'intertight_bold';
-  src: url('/fonts/InterTight-Bold.woff2') format('woff2');
+  font-family: Inter;
+  src: url('/fonts/Inter-Bold.woff2') format('woff2');
   font-weight: bold;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-  font-family: 'intertight_regular';
-  src: url('/fonts/InterTight-Regular.woff2') format('woff2');
+  font-family: Inter;
+  src: url('/fonts/Inter-Regular.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: GeistMono;
+  src: url('/fonts/GeistMono-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: GeistMono;
+  src: url('/fonts/GeistMono-Bold.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
 }
 
 /* Base font size for small mobile devices */
@@ -18,12 +36,6 @@ html {
 }
 
 @media screen and (width >= 480px) {
-  html {
-    font-size: 22px;
-  }
-}
-
-@media screen and (width >= 960px) {
   html {
     font-size: 20px;
   }
@@ -75,13 +87,12 @@ html {
 
 body {
   background-color: var(--body-background);
-  font-weight: 400;
+  font-weight: normal;
   line-height: 1.3;
   color: var(--copy-color);
-  font-feature-settings: 'kern', 'liga', 'swsh';
+  font-feature-settings: 'kern', 'liga';
   text-rendering: optimizelegibility;
-  font-variant-numeric: oldstyle-nums;
-  font-family: 'intertight_regular', sans-serif;
+  font-family: GeistMono, monospace;
   margin: 0;
 }
 
@@ -169,7 +180,6 @@ ol {
 a {
   color: var(--copy-color);
   text-decoration: none;
-  font-weight: 700;
   position: relative;
   hyphens: none;
 }
@@ -190,8 +200,7 @@ h1 {
   width: 35rem;
   max-width: calc(100% - 2rem);
   margin: 0 1rem;
-  font-family: 'intertight_bold', sans-serif;
-  font-weight: bold;
+  font-weight: normal;
   line-height: 1.1;
   letter-spacing: -0.03em;
   padding: 1rem;
@@ -238,8 +247,6 @@ h2 {
   overflow-wrap: break-word;
   max-width: 35rem;
   margin: 0 1rem;
-  font-family: 'intertight_bold', sans-serif;
-  font-weight: bold;
   line-height: 1.2;
   letter-spacing: -0.02em;
   padding: 0.5rem 1rem;
@@ -309,7 +316,6 @@ small,
   a {
     color: var(--copy-color);
     text-decoration: none;
-    font-family: 'intertight_bold', sans-serif;
     font-size: var(--small);
 
     &:hover {
@@ -505,7 +511,6 @@ address {
     transform: translateY(-50%);
     display: flex;
     gap: 0.5rem;
-    font-family: 'intertight_bold', sans-serif;
     font-size: var(--small);
     color: var(--copy-color);
     z-index: 10;
@@ -565,8 +570,7 @@ address {
 
 code,
 pre {
-  font-family: 'fira_code', monospace;
-  letter-spacing: -1px;
+  letter-spacing: -0.05em;
   font-size: 0.8rem;
 }
 
@@ -597,7 +601,6 @@ a[href^='#fn:'],
 a[href^='#fnref:'] {
   background: none;
   text-decoration: none;
-  font-family: 'intertight_bold', sans-serif;
   margin-left: -0.5em;
   margin-right: -0.2em;
   font-size: 0.66rem;
@@ -623,7 +626,6 @@ a.footnote-return {
   position: absolute;
   bottom: var(--first);
   right: var(--first);
-  font-family: 'intertight_bold', sans-serif;
   color: var(--hover-link-color);
   font-size: var(--small);
 }
@@ -645,7 +647,8 @@ blockquote {
     font-size: 3rem;
     color: var(--accent-primary);
     line-height: 1;
-    font-family: 'intertight_bold', sans-serif;
+    font-family: Inter, sans-serif;
+    font-weight: bold;
   }
 
   @media screen and (width >= 480px) {
@@ -705,7 +708,6 @@ iframe {
       content: counter(track-counter, decimal-leading-zero);
       counter-increment: track-counter;
       flex-shrink: 0;
-      font-family: 'intertight_bold', sans-serif;
       font-size: var(--small);
       color: var(--accent-primary);
       min-width: 1.5rem;
@@ -732,10 +734,11 @@ nav.top {
 
   li {
     font-size: 22px;
-    font-family: 'intertight_bold', sans-serif;
+    font-weight: normal;
   }
 
   li:where(:first-of-type) {
+    font-family: Inter, sans-serif;
     font-size: 34px;
     margin: 2rem 0.5rem;
     padding: 3rem 1.5rem 1.5rem;
@@ -780,7 +783,7 @@ nav.top {
 
   .mix-title {
     display: block;
-    font-weight: bold;
+    font-weight: normal;
     transition: color 0.15s ease;
   }
 
@@ -790,7 +793,6 @@ nav.top {
 
   .metadata {
     font-size: var(--small);
-    font-family: 'intertight_regular', sans-serif;
     margin: 0.5rem 0 0;
     padding: 0;
     display: flex;
@@ -808,7 +810,7 @@ nav.top {
     color: var(--surface-color);
     padding: 0.15rem 0.4rem;
     font-size: 0.7rem;
-    font-family: 'intertight_bold', sans-serif;
+    font-family: 'inter_bold', sans-serif;
     letter-spacing: 0.02em;
   }
 
@@ -1059,7 +1061,7 @@ nav.top {
     padding: 0 !important;
     width: auto !important;
     max-width: none !important;
-    font-family: 'intertight_bold', sans-serif;
+    font-family: Inter, sans-serif;
     line-height: 0.95;
     background: none !important;
     box-shadow: none !important;
@@ -1077,7 +1079,7 @@ nav.top {
 }
 
 .home-block-label {
-  font-family: 'intertight_bold', sans-serif;
+  font-weight: normal;
   font-size: 1.25rem;
   letter-spacing: 0.02em;
   text-transform: lowercase;
@@ -1230,7 +1232,7 @@ nav.top {
     position: static;
     display: block;
     margin-top: 0.5rem;
-    font-size: var(--small);
+    font-size: var(--base);
     color: var(--copy-color);
     opacity: 0.6;
     letter-spacing: normal;
@@ -1291,7 +1293,6 @@ nav.top {
 }
 
 .bpm-value {
-  font-family: 'intertight_bold', sans-serif;
   font-size: var(--second);
   line-height: 1;
   color: var(--copy-color);
@@ -1393,6 +1394,7 @@ nav.top {
   }
 
   h1 {
+    font-family: Inter, sans-serif;
     font-size: var(--second);
     margin: 0 0 0.75rem !important;
     padding: 0 !important;
@@ -1496,6 +1498,7 @@ nav.top {
 
   :where(header) {
     h3 {
+      font-weight: normal;
       margin: 0 0 0.5rem;
       padding: 0;
       font-size: var(--base);
@@ -1520,6 +1523,7 @@ nav.top {
       margin: 0 0 var(--base);
       padding: 0;
       max-width: none;
+      font-family: Inter, sans-serif;
 
       &:where(:last-child) {
         margin-bottom: 0;
@@ -1586,6 +1590,7 @@ nav.top {
   }
 
   .education-details {
+    font-family: Inter, sans-serif;
     display: block;
     margin-top: 0.5rem;
     font-size: var(--base);
@@ -1657,12 +1662,13 @@ nav.top {
   }
 
   h2 {
+    font-family: Inter, sans-serif;
+    font-weight: normal;
     font-size: var(--second);
     margin: 0 0 1rem !important;
     padding: 0 !important;
     width: auto !important;
     max-width: none !important;
-    font-family: 'intertight_bold', sans-serif;
     line-height: 1.1;
     background: none !important;
     box-shadow: none !important;
@@ -1720,7 +1726,6 @@ nav.top {
     padding: 0;
     font-size: var(--base);
     max-width: none;
-    font-family: 'intertight_bold', sans-serif;
 
     @media screen and (width >= 480px) {
       font-size: var(--first);
@@ -1728,6 +1733,7 @@ nav.top {
   }
 
   p {
+    font-family: Inter, sans-serif;
     margin: 0;
     padding: 0;
     max-width: none;
