@@ -1720,6 +1720,16 @@ nav.top {
   }
 }
 
+.timeline-bookend-card .interests-right {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  @media screen and (width >= 480px) {
+    gap: 2rem;
+  }
+}
+
 /* Interest items - simpler style inside the bookend */
 .timeline-bookend-card .interest-item {
   padding-bottom: 1rem;
