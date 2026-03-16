@@ -6,18 +6,25 @@ import {
 } from './utils.js';
 
 const DEFAULT_CONFIG = {
+  gridSpacing: 80,
+  lineCount: 18,
+  lineOpacity: 0.06,
+  segmentOpacity: 0.08,
+  accentLineCount: 5,
+  accentOpacity: 0.12,
+  mouseInfluenceRadius: 200,
+  animationSpeed: 0.0003,
+  pulseSpeed: 0.0015,
+  driftSpeed: 0.15,
   particleCount: 40,
   particleBaseSize: 3,
   particleSizeVariance: 2,
-  mouseInfluenceRadius: 150,
-  mouseInfluenceStrength: 0.3,
-  animationSpeed: 0.0005,
-  pulseSpeed: 0.002,
+  particleDriftSpeed: 0.3,
 };
 
 /**
- * BackgroundPattern creates an animated geometric pattern that reacts to mouse movement
- * and pulses with the site's accent color animation.
+ * BackgroundPattern draws an architectural blueprint-style grid
+ * with drifting horizontal and vertical lines.
  */
 export class BackgroundPattern {
   constructor(canvasId, config = {}) {
@@ -34,6 +41,7 @@ export class BackgroundPattern {
 
     this.config = { ...DEFAULT_CONFIG, ...config };
     this.ctx = this.canvas.getContext('2d');
+    this.lines = [];
     this.particles = [];
     this.mouse = { x: null, y: null };
     this.animationId = null;
@@ -53,22 +61,18 @@ export class BackgroundPattern {
     this.setupCanvas();
     this.setupMouseTracking();
     this.setupVisibilityHandler();
+    this.initLines();
     this.initParticles();
     this.colorObserver.start();
   }
 
   setupCanvas() {
     this.resizeHandler = () => {
-      const oldWidth = this.canvas.width;
-      const oldHeight = this.canvas.height;
       this.canvas.width = window.innerWidth;
       this.canvas.height = window.innerHeight;
-
-      if (oldWidth > 0 && oldHeight > 0) {
-        this.particles.forEach((particle) => {
-          particle.baseX = (particle.baseX / oldWidth) * this.canvas.width;
-          particle.baseY = (particle.baseY / oldHeight) * this.canvas.height;
-        });
+      if (this.lines.length === 0) {
+        this.initLines();
+        this.initParticles();
       }
     };
     this.resizeHandler();
@@ -115,16 +119,42 @@ export class BackgroundPattern {
 
   initParticles() {
     this.particles = [];
+    const w = this.canvas.width;
+    const h = this.canvas.height;
+
     for (let i = 0; i < this.config.particleCount; i++) {
       this.particles.push({
-        baseX: Math.random() * this.canvas.width,
-        baseY: Math.random() * this.canvas.height,
-        x: 0,
-        y: 0,
+        x: Math.random() * w,
+        y: Math.random() * h,
         size: this.config.particleBaseSize + Math.random() * this.config.particleSizeVariance,
-        speedX: (Math.random() - 0.5) * 0.5,
-        speedY: (Math.random() - 0.5) * 0.5,
+        vx: (Math.random() - 0.5) * this.config.particleDriftSpeed,
+        vy: (Math.random() - 0.5) * this.config.particleDriftSpeed,
         phase: Math.random() * Math.PI * 2,
+      });
+    }
+  }
+
+  initLines() {
+    this.lines = [];
+    const w = this.canvas.width;
+    const h = this.canvas.height;
+    const totalLines = this.config.lineCount + this.config.accentLineCount;
+
+    for (let i = 0; i < totalLines; i++) {
+      const isAccent = i >= this.config.lineCount;
+      const isHorizontal = Math.random() > 0.5;
+
+      this.lines.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        isHorizontal,
+        vx: isHorizontal ? 0 : (Math.random() - 0.5) * this.config.driftSpeed,
+        vy: isHorizontal ? (Math.random() - 0.5) * this.config.driftSpeed : 0,
+        thickness: isAccent ? 2.5 + Math.random() * 2 : 1 + Math.random() * 1.5,
+        phase: Math.random() * Math.PI * 2,
+        isAccent,
+        hasDouble: Math.random() > 0.6,
+        doubleOffset: 4 + Math.random() * 6,
       });
     }
   }
@@ -168,44 +198,171 @@ export class BackgroundPattern {
     this.animationId = requestAnimationFrame(() => this.draw());
     this.time += this.config.animationSpeed;
 
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    const ctx = this.ctx;
+    const w = this.canvas.width;
+    const h = this.canvas.height;
+
+    ctx.clearRect(0, 0, w, h);
 
     const { r, g, b } = this.colorObserver.getRgb();
+    const copyColor = '45, 45, 45';
 
-    this.particles.forEach((particle) => {
-      particle.baseX += particle.speedX;
-      particle.baseY += particle.speedY;
+    this.drawGrid(ctx, w, h, copyColor);
+    this.updateLines(w, h);
+    this.drawLines(ctx, r, g, b, copyColor);
+    this.updateParticles(w, h);
+    this.drawParticles(ctx, r, g, b);
+  }
 
-      if (particle.baseX < 0 || particle.baseX > this.canvas.width) particle.speedX *= -1;
-      if (particle.baseY < 0 || particle.baseY > this.canvas.height) particle.speedY *= -1;
+  drawGrid(ctx, w, h, copyColor) {
+    const spacing = this.config.gridSpacing;
+    const baseOpacity = this.config.lineOpacity;
 
-      let x = particle.baseX;
-      let y = particle.baseY;
+    ctx.lineWidth = 0.5;
 
-      if (this.mouse.x !== null && this.mouse.y !== null) {
-        const dx = this.mouse.x - particle.baseX;
-        const dy = this.mouse.y - particle.baseY;
-        const distance = Math.sqrt(dx * dx + dy * dy);
+    for (let x = 0; x < w; x += spacing) {
+      let opacity = baseOpacity;
 
-        if (distance < this.config.mouseInfluenceRadius) {
-          const force =
-            (1 - distance / this.config.mouseInfluenceRadius) * this.config.mouseInfluenceStrength;
-          x += dx * force;
-          y += dy * force;
+      if (this.mouse.x !== null) {
+        const dist = Math.abs(this.mouse.x - x);
+        if (dist < this.config.mouseInfluenceRadius) {
+          const influence = 1 - dist / this.config.mouseInfluenceRadius;
+          opacity += influence * 0.06;
         }
       }
 
-      particle.x = x;
-      particle.y = y;
+      ctx.strokeStyle = `rgba(${copyColor}, ${opacity})`;
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, h);
+      ctx.stroke();
+    }
 
+    for (let y = 0; y < h; y += spacing) {
+      let opacity = baseOpacity;
+
+      if (this.mouse.y !== null) {
+        const dist = Math.abs(this.mouse.y - y);
+        if (dist < this.config.mouseInfluenceRadius) {
+          const influence = 1 - dist / this.config.mouseInfluenceRadius;
+          opacity += influence * 0.06;
+        }
+      }
+
+      ctx.strokeStyle = `rgba(${copyColor}, ${opacity})`;
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(w, y);
+      ctx.stroke();
+    }
+  }
+
+  updateLines(w, h) {
+    this.lines.forEach((line) => {
+      line.x += line.vx;
+      line.y += line.vy;
+
+      if (line.isHorizontal) {
+        if (line.y < 0) line.y = h;
+        if (line.y > h) line.y = 0;
+      } else {
+        if (line.x < 0) line.x = w;
+        if (line.x > w) line.x = 0;
+      }
+    });
+  }
+
+  drawLines(ctx, r, g, b, copyColor) {
+    this.lines.forEach((line) => {
       const pulse =
-        Math.sin(this.time * 1000 * this.config.pulseSpeed + particle.phase) * 0.5 + 0.5;
+        Math.sin(this.time * 1000 * this.config.pulseSpeed + line.phase) * 0.5 + 0.5;
+
+      let mouseProximity = 0;
+      if (this.mouse.x !== null && this.mouse.y !== null) {
+        const dx = this.mouse.x - line.x;
+        const dy = this.mouse.y - line.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < this.config.mouseInfluenceRadius) {
+          mouseProximity = 1 - dist / this.config.mouseInfluenceRadius;
+        }
+      }
+
+      const color = line.isAccent ? `${r}, ${g}, ${b}` : copyColor;
+      const baseOpacity = line.isAccent ? this.config.accentOpacity : this.config.segmentOpacity;
+      const opacity = baseOpacity + pulse * 0.04 + mouseProximity * 0.06;
+
+      let x1, y1, x2, y2;
+
+      if (line.isHorizontal) {
+        x1 = 0;
+        x2 = this.canvas.width;
+        y1 = line.y;
+        y2 = line.y;
+      } else {
+        x1 = line.x;
+        x2 = line.x;
+        y1 = 0;
+        y2 = this.canvas.height;
+      }
+
+      ctx.strokeStyle = `rgba(${color}, ${opacity})`;
+      ctx.lineWidth = line.thickness;
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+
+      if (line.hasDouble) {
+        const off = line.doubleOffset;
+        ctx.strokeStyle = `rgba(${color}, ${opacity * 0.5})`;
+        ctx.lineWidth = line.thickness * 0.5;
+        ctx.beginPath();
+        if (line.isHorizontal) {
+          ctx.moveTo(x1, y1 + off);
+          ctx.lineTo(x2, y2 + off);
+        } else {
+          ctx.moveTo(x1 + off, y1);
+          ctx.lineTo(x2 + off, y2);
+        }
+        ctx.stroke();
+      }
+    });
+  }
+
+  updateParticles(w, h) {
+    this.particles.forEach((p) => {
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if (p.x < 0) p.x = w;
+      if (p.x > w) p.x = 0;
+      if (p.y < 0) p.y = h;
+      if (p.y > h) p.y = 0;
+
+      if (this.mouse.x !== null && this.mouse.y !== null) {
+        const dx = p.x - this.mouse.x;
+        const dy = p.y - this.mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < this.config.mouseInfluenceRadius && dist > 0) {
+          const force = (1 - dist / this.config.mouseInfluenceRadius) * 0.5;
+          p.x += (dx / dist) * force;
+          p.y += (dy / dist) * force;
+        }
+      }
+    });
+  }
+
+  drawParticles(ctx, r, g, b) {
+    this.particles.forEach((p) => {
+      const pulse =
+        Math.sin(this.time * 1000 * this.config.pulseSpeed + p.phase) * 0.5 + 0.5;
       const opacity = 0.15 + pulse * 0.15;
 
-      this.ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${opacity})`;
-      this.ctx.beginPath();
-      this.ctx.arc(x, y, particle.size, 0, Math.PI * 2);
-      this.ctx.fill();
+      ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${opacity})`;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
     });
   }
 
