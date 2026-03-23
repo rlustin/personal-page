@@ -1,0 +1,22 @@
+{% extends "base.html" %} {% block title %}Blog{% endblock %} {% block description %}Writing about
+software, music, and things I build.{% endblock %} {% block body_class %}page-blog{% endblock %} {%
+block content %}
+<p class="nav">
+  <a href="../">← home</a>
+</p>
+<nav class="top">
+  <ol>
+    <li>{{ section.title }}</li>
+    {% for page in section.pages %}
+    <li>
+      <a href="{{ page.permalink | safe }}" class="mix-link">
+        <div class="mix-item">
+          <span class="mix-title">{{ page.title }}</span>
+          <p class="metadata">{{ page.date }}</p>
+        </div>
+      </a>
+    </li>
+    {% endfor %}
+  </ol>
+</nav>
+{% endblock content %}

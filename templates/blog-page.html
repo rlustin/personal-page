@@ -1,0 +1,11 @@
+{% extends "base.html" %} {% block title %}{{ page.title }}{% endblock %} {% block description %}{{
+page.description }}{% endblock %} {% block body_class %}page-blog{% endblock %} {% block content %}
+<p class="nav">
+  <a href="../">← blog</a>
+</p>
+<h1 class="title blog-title">{{ page.title }}</h1>
+<div class="blog-content">
+<p class="blog-date">{{ page.date }}</p>
+{{ page.content | safe }}
+</div>
+{% endblock content %}
